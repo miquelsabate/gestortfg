@@ -1,0 +1,140 @@
+body {
+    padding-top:60px;
+}
+
+.heading {
+        font-family: 'Julius Sans One', sans-serif;
+	font-weight: bold;
+	color: #FFFFFF;
+	background-color: #c20f24;
+        position:fixed;
+        top:0px;
+        left:0px;
+        right:0px;
+        height:60px;
+}
+
+.buttonMain {
+        font-size: 13pt;
+	font-weight: bold;
+	color: #FFFFFF;
+	background-color: #c20f24;
+        height:58px;
+        float:left;
+        padding-left:10px;
+        padding-right:10px;
+        line-height:350%;
+        border: 1px solid black;
+}
+
+.buttonMain:hover {
+    	background-color: #f04259;    
+}
+
+.headerimg {
+        max-width: 12%;
+        margin: auto;
+        padding-left:100px;
+        padding-right:10px;
+        padding-top: 12px;
+}
+
+table {  
+    color: #333;
+    font-family: Helvetica, Arial, sans-serif;
+    width: 50%;
+    align-self:  center;
+    border-collapse: collapse; 
+    border-spacing: 5px; 
+    margin: auto;
+}
+
+td, th {  
+    border: 1px solid transparent; /* No more visible border */
+    height: 30px; 
+    transition: all 0.3s;  /* Simple transition for hover effect */
+    text-align: left;
+}
+
+th {  
+    background: #DFDFDF;  /* Darken header a bit */
+    font-weight: bold;
+}
+
+td {  
+    background: #FAFAFA;
+}
+tr:nth-child(even) td { background: #F1F1F1; }   
+tr:nth-child(odd) td { background: #FEFEFE; }
+tr td:hover { background: #666; color: #FFF; }
+
+.login_form {
+	display: flex;
+	flex-direction: column;
+	padding: 1.5rem 2rem 0;
+        width: 30%;
+        margin: auto;
+
+}
+
+input[type=text], [type=password] {
+	height: .5rem;
+	margin: .5rem 0;
+	padding: 1rem;
+	transition: all .7s;
+}
+
+input[type=text]:focus, [type=password]:focus {
+	border-color: #c8c8c8;
+	background-color: #efefef; 
+}
+
+.btn_submit {
+	height: 2.5rem;
+	border: none;
+	background-color: #c20f24;
+	color: white;
+	padding: .5px;
+	margin: .5rem 0 .3rem;
+}
+
+.btn_submit:hover {
+	background-color: #f04259; 
+}
+
+.button {
+        width: 50%;
+        background-color: white;
+        color: #c20f24;
+        border: 2px solid #c20f24;
+        margin:auto;
+        padding:.8px;
+}
+
+.button:hover {
+	background-color: #f04259; 
+}
+
+.contenidor{
+   text-align: center; 
+   width: 50%;
+   font-weight: bold;
+   font-size: 13pt;
+   margin: auto; 
+   background-color: #c20f24;
+   color: white;
+   padding: .4px; 
+}
+
+.contenidor2{
+   text-align: center; 
+   width: 25%;
+   border: 1px solid #c20f24;
+   border-radius:10px;
+   font-weight: bold;
+   font-size: 13pt;
+   margin: auto; 
+   background-color: #c20f24;
+   color: white;
+   padding: .4px; 
+}

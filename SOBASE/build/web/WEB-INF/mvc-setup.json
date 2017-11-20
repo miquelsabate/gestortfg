@@ -1,0 +1,32 @@
+{
+  "commands": [
+    {
+      "URI": "/tots",
+      "class": "cat.urv.deim.sob.command.TotsProjCommand"
+    },
+    {
+      "URI": "/anteriors",
+      "class": "cat.urv.deim.sob.command.AntProjCommand"
+    },
+    {
+      "URI": "/actius",
+      "class": "cat.urv.deim.sob.command.ActiusProjCommand"
+    },
+    {
+      "URI": "/proj-professor",
+      "class": "cat.urv.deim.sob.command.ProfProjCommand"
+    },
+    {
+      "URI": "/login",
+      "class": "cat.urv.deim.sob.command.LoginCommand"
+    },
+    {
+      "URI": "/signup",
+      "class": "cat.urv.deim.sob.command.SignUpCommand"
+    },
+    {
+      "URI": "/proposar",
+      "class": "cat.urv.deim.sob.command.ProposarProjCommand"
+    }
+  ]
+}
