@@ -6,7 +6,7 @@
 <html>
     <head>
         <link rel="stylesheet" type="text/css" href="css/estils.css">
-	<title>Gestor de TFGs - SOB</title>
+        <title>Gestor de TFGs - SOB</title>
     </head>
     <body>
         <table>
@@ -18,14 +18,18 @@
                 </tr>
             </thead>
             <tbody>
-            <%
-            LinkedList<Projecte> llista = (LinkedList<Projecte>) request.getAttribute("llistat");
-            out.println("<tr>");
-            for (Projecte proj : llista) {
-                    out.print("<tr><td>"+ proj.getTitol() + "</td><td>" + proj.getEstat() + "</td><td>"+ proj.getProfessor() +"</td></tr>");
-            }
-            %>
+                <%
+                    LinkedList<Projecte> llista = (LinkedList<Projecte>) request.getAttribute("llistat");
+                    LinkedList<String> prova = (LinkedList<String>) request.getAttribute("prova");
+                    int contador = (Integer) request.getAttribute("contador");
+                    out.println(prova);
+                    out.println(contador);
+                    out.println("<tr>");
+                    for (Projecte proj : llista) {
+                        out.print("<tr><td>" + proj.getTitol() + "</td><td>" + proj.getEstat() + "</td><td>" + proj.getProfessor() + "</td></tr>");
+                    }
+                %>
             </tbody>
         </table>
     </body>
-    </html>
+</html>
