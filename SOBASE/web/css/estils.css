@@ -34,7 +34,11 @@ body {
 .headerimg {
         max-width: 12%;
         margin: auto;
+<<<<<<< HEAD
+        padding-left:10%;
+=======
         padding-left:15%;
+>>>>>>> 8139df0b950e58e63d3e11b0fdc23fbbe0530170
         padding-top: 0.25%;
 }
 
@@ -136,4 +140,15 @@ input[type=text]:focus, [type=password]:focus {
    background-color: #c20f24;
    color: white;
    padding: .4px; 
+}
+
+a {
+    color: inherit;
+    text-decoration:none;
+}
+
+a:hover {
+    color:#c20f24;
+    font-size:97%;
+    font-weight:bolder;
 }

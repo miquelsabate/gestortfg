@@ -12,7 +12,7 @@
     </head>
     <body>
         <%  LinkedList<Projecte> llista = (LinkedList<Projecte>) request.getAttribute("llistat");
-            User user = (User) request.getAttribute("user");
+            User user = (User) session.getAttribute("user");
             if (user.getNomUsuari().equals("")||user.getPass().equals("")||user.getNomComplet().equals("")){
                 out.println("<div class='contenidor'>");
                 out.println("Usuari i/o contrasenya incorrectes");

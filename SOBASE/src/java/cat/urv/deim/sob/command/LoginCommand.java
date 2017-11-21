@@ -9,6 +9,7 @@ import javax.servlet.ServletContext;
 import java.io.IOException;
 import java.sql.*;
 import java.util.LinkedList;
+import javax.servlet.http.HttpSession;
 
 public class LoginCommand implements Command {
     
@@ -45,7 +46,8 @@ public class LoginCommand implements Command {
                 }
         }catch(SQLException | ClassNotFoundException e){ }
         request.setAttribute("llistat", llista);
-        request.setAttribute("user", u);
+        HttpSession session = request.getSession();
+        session.setAttribute("user", u);
         ServletContext context = request.getSession().getServletContext();
         context.getRequestDispatcher("/zonauser.jsp").forward(request, response);
         //response.sendRedirect("zonauser.jsp");

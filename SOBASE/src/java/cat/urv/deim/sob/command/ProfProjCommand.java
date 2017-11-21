@@ -23,8 +23,8 @@ public class ProfProjCommand implements Command {
         Class.forName("org.apache.derby.jdbc.ClientDriver");
             Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/TFGDB", "root", "root");
             Statement stmt = con.createStatement();
-            String query2 = "SELECT nom_usuari FROM TFGDB.Professor WHERE nom_usuari='"+request.getParameter("id_prof")+"' OR nom_complert='"+request.getParameter("id_prof")+"'";
-            String query = "SELECT P.titol, P.estat, R.professor FROM TFGDB.Projecte P, TFGDB.Relacio R WHERE R.professor = ("+query2+")";
+            String query2 = "SELECT DISTINCT nom_usuari FROM TFGDB.Professor WHERE nom_usuari='"+request.getParameter("professor")+"' OR nom_complert='"+request.getParameter("professor")+"'";
+            String query = "SELECT DISTINCT P.titol, P.estat, R.professor FROM TFGDB.Projecte P, TFGDB.Relacio R WHERE R.professor = ("+query2+")";
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
                     p = new Projecte(rs.getString("titol"),rs.getString("estat"),rs.getString("professor"));

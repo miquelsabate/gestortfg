@@ -20,10 +20,22 @@ public class TotsProjCommand implements Command {
         Class.forName("org.apache.derby.jdbc.ClientDriver");
             Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/TFGDB", "root", "root");
             Statement stmt = con.createStatement();
-            String query = "SELECT P.titol, P.estat, Pr.nom_complert FROM TFGDB.Projecte P, TFGDB.Relacio R, TFGDB.Professor Pr WHERE Pr.nom_usuari = (SELECT Professor FROM TFGDB.Relacio) ORDER BY P.titol";
+            Statement stmt2 = con.createStatement();
+            //String query = "SELECT P.titol, P.estat, Pr.nom_complert FROM TFGDB.Projecte P, TFGDB.Relacio R, TFGDB.Professor Pr WHERE P.estat != 'Defensat' AND Pr.nom_usuari = (SELECT Professor FROM TFGDB.Relacio) ORDER BY P.titol";
+            String query = "SELECT titol, estat FROM TFGDB.Projecte ORDER BY titol";
+            String query2;
+            ResultSet rs2;
+            String prof;
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
-                    p = new Projecte(rs.getString("titol"),rs.getString("estat"),rs.getString("nom_complert"));
+                    prof = "";
+                    query2 = "SELECT professor FROM TFGDB.Relacio WHERE titol='"+rs.getString("titol")+"'";
+                    rs2 = stmt2.executeQuery(query2);
+                    while (rs2.next()){
+                       prof += "<a href='proj-professor.do?professor="+rs2.getString("professor")+"'>"+rs2.getString("professor")+"</a> ";
+                       //if (!(rs2.isLast())) prof += ", ";
+                    }
+                    p = new Projecte(rs.getString("titol"),rs.getString("estat"), prof);
                     llista.add(p);
             }
             con.close();
