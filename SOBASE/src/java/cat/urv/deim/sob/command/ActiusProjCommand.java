@@ -24,17 +24,11 @@ public class ActiusProjCommand implements Command {
             Statement stmt = con.createStatement();
             Statement stmt2 = con.createStatement();
             //String query = "SELECT P.titol, P.estat, Pr.nom_complert FROM TFGDB.Projecte P, TFGDB.Relacio R, TFGDB.Professor Pr WHERE P.estat != 'Defensat' AND Pr.nom_usuari = (SELECT Professor FROM TFGDB.Relacio) ORDER BY P.titol";
-<<<<<<< HEAD
             String query = "SELECT titol, estat FROM TFGDB.Projecte WHERE estat !='Defensat' ORDER BY titol";
-=======
-
-            String query = "SELECT titol, estat FROM TFGDB.Projecte ORDER BY titol";
->>>>>>> 8139df0b950e58e63d3e11b0fdc23fbbe0530170
             String query2;
             ResultSet rs2;
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
-<<<<<<< HEAD
                     prof = "";
                     query2 = "SELECT professor FROM TFGDB.Relacio WHERE titol='"+rs.getString("titol")+"'";
                     rs2 = stmt2.executeQuery(query2);
@@ -44,18 +38,6 @@ public class ActiusProjCommand implements Command {
                     }
                     p = new Projecte(rs.getString("titol"),rs.getString("estat"), prof);
                     llista.add(p);
-=======
-                prof = "";
-                prova.add(rs.getString("titol"));
-                //prova += rs.getString("titol");
-                query2 = "SELECT professor FROM TFGDB.Relacio WHERE titol='" + rs.getString("titol") + "'";
-                rs2 = stmt.executeQuery(query2);
-                while (rs2.next()) {
-                    prof += rs2.getString("professor") + ", ";
-                }
-                p = new Projecte(rs.getString("titol"), rs.getString("estat"), prof);
-                llista.add(p);
->>>>>>> 8139df0b950e58e63d3e11b0fdc23fbbe0530170
             }
             con.close();
         } catch (SQLException | ClassNotFoundException e) {
