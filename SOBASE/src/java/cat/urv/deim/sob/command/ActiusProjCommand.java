@@ -15,8 +15,7 @@ public class ActiusProjCommand implements Command {
     public void execute(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
         Projecte p;
-        String prof = "";
-        LinkedList<String> prova = new LinkedList<String>();
+        String prof;
         LinkedList<Projecte> llista = new LinkedList<Projecte>();
         try {
             Class.forName("org.apache.derby.jdbc.ClientDriver");
@@ -43,7 +42,6 @@ public class ActiusProjCommand implements Command {
         } catch (SQLException | ClassNotFoundException e) {
         }
         request.setAttribute("llistat", llista);
-        request.setAttribute("prova", prova);
         ServletContext context = request.getSession().getServletContext();
         context.getRequestDispatcher("/actius.jsp").forward(request, response);
     }

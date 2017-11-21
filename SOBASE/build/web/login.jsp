@@ -10,7 +10,7 @@
 	<title>Gestor de TFGs - SOB</title>
     </head>
     <body>
-       <% if (request.getParameter("entrar") == null) { %>
+       <% if (session.getAttribute("user") == null) { %>
         <form class="login_form" method="post" action="login.do">
             <select name="tipus" style="padding: 1rem 1rem 0;vertical-align:middle;border-color: #c8c8c8;background-color: #efefef">
                 <option value="Estudiant">ESTUDIANT</option>
@@ -22,12 +22,13 @@
         </form>
                 
         <% } else {
-            User user = (User) request.getAttribute("user");
+            User user = (User) session.getAttribute("user");
             if (user.getNomUsuari().equals("")||user.getPass().equals("")||user.getNomComplet().equals("")){
                 out.println("<div class='contenidor'>");
                 out.println("Usuari i/o contrasenya incorrectes");
                 out.println("</div>");
-            }
+                session.setAttribute("user", null);
+            } else response.sendRedirect("user.do");
             }
             %>
     </body>

@@ -49,7 +49,7 @@ public class LoginCommand implements Command {
         HttpSession session = request.getSession();
         session.setAttribute("user", u);
         ServletContext context = request.getSession().getServletContext();
-        context.getRequestDispatcher("/zonauser.jsp").forward(request, response);
+        context.getRequestDispatcher("/login.jsp").forward(request, response);
         //response.sendRedirect("zonauser.jsp");
     }
 }

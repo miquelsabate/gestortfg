@@ -20,10 +20,6 @@
             <tbody>
                 <%
                     LinkedList<Projecte> llista = (LinkedList<Projecte>) request.getAttribute("llistat");
-                    LinkedList<String> prova = (LinkedList<String>) request.getAttribute("prova");
-                    int contador = (Integer) request.getAttribute("contador");
-                    out.println(prova);
-                    out.println(contador);
                     out.println("<tr>");
                     for (Projecte proj : llista) {
                         out.print("<tr><td>" + proj.getTitol() + "</td><td>" + proj.getEstat() + "</td><td>" + proj.getProfessor() + "</td></tr>");

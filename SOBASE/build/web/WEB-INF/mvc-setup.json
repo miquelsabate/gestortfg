@@ -21,6 +21,10 @@
       "class": "cat.urv.deim.sob.command.LoginCommand"
     },
     {
+      "URI": "/user",
+      "class": "cat.urv.deim.sob.command.ZonaUserCommand"
+    },
+    {
       "URI": "/signup",
       "class": "cat.urv.deim.sob.command.SignUpCommand"
     },

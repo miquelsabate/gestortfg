@@ -46,12 +46,23 @@
                     out.println("<br>");
                     out.println("<div class='contenidor'>");
                     out.println("Els teus projectes");
-                    out.println("</div>");
-                    out.println("<tr>");
+                    out.println("</div><br>"); %>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Títol TFG</th>
+                                <th>Estat</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                <%  out.println("<tr>");
                     for (Projecte proj : llista) {
-                        out.println("<tr><td>"+ proj.getTitol() + "</td><td>" + proj.getEstat() + "</td><td>"+ proj.getProfessor() +"</td></tr>");
+                        out.print("<tr><td>" + proj.getTitol() + "</td><td>" + proj.getEstat() + "</td><td>" + proj.getProfessor() + "</td></tr>");
                     }
-                }               
+                %>
+            </tbody>
+        </table>
+                <% }               
             }
         %>
     </body>
