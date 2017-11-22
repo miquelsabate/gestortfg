@@ -19,7 +19,7 @@
         <% }else { 
             User u = (User) session.getAttribute("user"); %>
         <a style="float:right;" href="<%=request.getContextPath() %>/signout.do"><div class="buttonMain">Tancar sessió</div></a>
-        <a class="msgbenvinguda" style="float:right;" href="<%=request.getContextPath() %>/user.do"><%=u.getNomComplet()%></a>
+        <a class="msgBenvinguda" style="float:right;" href="<%=request.getContextPath() %>/user.do"><%=u.getNomComplet()%></a>
         <% } %>
     </div>
   </body>

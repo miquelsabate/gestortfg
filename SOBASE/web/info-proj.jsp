@@ -6,6 +6,7 @@
 <html>
     <head>
         <link rel="stylesheet" type="text/css" href="css/estils.css">
+        <link href="https://fonts.googleapis.com/css?family=Julius+Sans+One" rel="stylesheet">
 	<title>Gestor de TFGs - SOB</title>
     </head>
     <body>
@@ -14,8 +15,10 @@
             out.println("<div class='contenidor2' style='width: 40%'>Informació del projecte</div><br>");
             for (Projecte proj : llista) {
                 out.println("<div class='infoProj'>");
-                out.println("Títol: "+proj.getTitol()+"<br><br>");
-                out.println("Estat: "+proj.getEstat()+"<br><br>");
+                out.println("Títol<br>");
+                out.println("<div class='infoContenidor'>"+proj.getTitol()+"</div><br>");
+                out.println("Estat<br>");
+                out.println("<div class='infoContenidor'>"+proj.getEstat()+"</div><br>");
                 out.println("Professor/s: "+proj.getProfessor()+"<br><br>");
                 out.println("Estudiant/s: "+proj.getEstudiant()+"<br><br>");
                 out.println("Estudi/s: "+proj.getEstudi()+"<br><br>");

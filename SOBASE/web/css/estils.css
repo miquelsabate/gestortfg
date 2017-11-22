@@ -163,7 +163,9 @@ a:hover {
 }
 
 .msgBenvinguda:hover {
-    	background-color: #f04259;    
+    	background-color: #f04259;
+        font-size:11pt;
+        color:white;
 }
 
 .estat{
@@ -193,9 +195,21 @@ a:hover {
 }
 
 .infoProj{
-    background-color:#f7f388;
-    border: 1px solid black;
     margin:auto;
     width: 60%;
-    
+    font-family: 'Julius Sans One', sans-serif;
+    color: black;
+    font-weight:bold;
+    font-size:15pt;    
+}
+
+.infoContenidor{
+   vertical-align:middle;
+   width: 45%;
+   height:5%;
+   border: 2px solid black;
+   border-radius:6px;
+   font-size: 11pt;
+   line-height:30px;
+   padding-left: 2%;
 }
