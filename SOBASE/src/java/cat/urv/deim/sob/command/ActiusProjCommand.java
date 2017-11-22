@@ -32,10 +32,10 @@ public class ActiusProjCommand implements Command {
                     query2 = "SELECT professor FROM TFGDB.Relacio WHERE titol='"+rs.getString("titol")+"'";
                     rs2 = stmt2.executeQuery(query2);
                     while (rs2.next()){
-                       prof += "<a href='proj-professor.do?professor="+rs2.getString("professor")+"'>"+rs2.getString("professor")+"</a> ";
+                       prof += "<a href='proj-professor.do?professor="+rs2.getString("professor")+"'>"+rs2.getString("professor")+"</a>";
                        //if (!(rs2.isLast())) prof += ", ";
                     }
-                    p = new Projecte(rs.getString("titol"),rs.getString("estat"), prof);
+                    p = new Projecte("<a href='projecte.do?projecte="+rs.getString("titol")+"'>"+rs.getString("titol")+"</a>",rs.getString("estat"), prof);
                     llista.add(p);
             }
             con.close();

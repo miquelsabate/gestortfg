@@ -17,6 +17,10 @@
       "class": "cat.urv.deim.sob.command.ProfProjCommand"
     },
     {
+      "URI": "/projecte",
+      "class": "cat.urv.deim.sob.command.InfoProjCommand"
+    },
+    {
       "URI": "/login",
       "class": "cat.urv.deim.sob.command.LoginCommand"
     },
