@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import javax.servlet.http.HttpSession;
 
 public class ProposarProjCommand implements Command {
 
@@ -15,10 +16,13 @@ public class ProposarProjCommand implements Command {
     public void execute(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException{
         String msg="";
+        HttpSession session = request.getSession();
         try{
             if((request.getParameter("titol").equals("")) || (request.getParameter("professors").equals("")) 
                     || (request.getParameter("estudis").equals(""))){
                   msg = "Has d'omplir tots els camps";
+            }else if(session.getAttribute("user") == null){
+                  msg = "Accés denegat";
             }else{
                 String[] professors = request.getParameter("professors").split(",");
                 String[] estudis = request.getParameter("estudis").split(",");

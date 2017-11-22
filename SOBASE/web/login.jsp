@@ -24,10 +24,10 @@
         <% } else {
                 User user = (User) session.getAttribute("user");
                 if (user.getNomUsuari().equals("") || user.getPass().equals("") || user.getNomComplet().equals("")) {
+                    session.setAttribute("user", null);
                     out.println("<div class='contenidor'>");
                     out.println("Usuari i/o contrasenya incorrectes");
                     out.println("</div>");
-                    session.setAttribute("user", null);
                 } else {
                     response.sendRedirect("user.do");
                 }

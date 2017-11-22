@@ -36,10 +36,10 @@ public class LoginCommand implements Command {
                     }
 
                     //String query2 = "SELECT P.titol, P.estat, Pr.nom_complert FROM TFGDB.Projecte P, TFGDB.Relacio R, TFGDB.Professor Pr WHERE Pr.nom_usuari = '"+request.getParameter("user")+"' ORDER BY P.estat";
-                    String query2 = "SELECT titol, estat FROM TFGDB.Projecte";
+                    String query2 = "SELECT titol, estat FROM TFGDB.Projecte ORDER BY titol";
                     ResultSet rs2 = stmt.executeQuery(query2);
                     while (rs2.next()) {
-                        p = new Projecte(rs.getString("titol"),rs.getString("estat"),"Prova");
+                        p = new Projecte(rs.getString("titol"),rs.getString("estat"),"");
                         llista.add(p);
                     }
                 }

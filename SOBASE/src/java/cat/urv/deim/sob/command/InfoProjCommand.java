@@ -30,6 +30,8 @@ public class InfoProjCommand implements Command {
             String estudiant = "";
             String estudi = "";
             Statement stmt2 = con.createStatement();
+            Statement stmt3 = con.createStatement();
+            Statement stmt4 = con.createStatement();
             ResultSet rs2;
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
@@ -41,12 +43,20 @@ public class InfoProjCommand implements Command {
                 p.setData_crea(rs.getString("data_crea"));
                 p.setData_mod(rs.getString("data_mod"));
                 titol = rs.getString("titol");
-                query2 = "SELECT professor, estudiant, estudi FROM TFGDB.Relacio WHERE titol = '" + titol + "'";
+                query2 = "SELECT DISTINCT professor FROM TFGDB.Relacio WHERE titol = '" + titol + "'";
                 rs2 = stmt2.executeQuery(query2);
                 while (rs2.next()) {
                     prof += rs2.getString("professor") + " ";
-                    estudiant += rs2.getString("estudiant");
-                    estudi += rs2.getString("estudi");
+                }
+                query2 = "SELECT DISTINCT estudiant FROM TFGDB.Relacio WHERE titol = '" + titol + "'";
+                ResultSet rs3 = stmt3.executeQuery(query2);
+                while (rs3.next()) {
+                    estudiant += rs3.getString("estudiant") + " ";
+                }
+                query2 = "SELECT DISTINCT estudi FROM TFGDB.Relacio WHERE titol = '" + titol + "'";
+                ResultSet rs4 = stmt4.executeQuery(query2);
+                while (rs4.next()) {
+                    estudi += rs4.getString("estudi") + " ";
                 }
                 p.setProfessor(prof);
                 p.setEstudiant(estudiant);

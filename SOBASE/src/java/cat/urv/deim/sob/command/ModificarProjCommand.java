@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import javax.servlet.http.HttpSession;
 
 public class ModificarProjCommand implements Command {
 
@@ -16,6 +17,7 @@ public class ModificarProjCommand implements Command {
             HttpServletResponse response) throws ServletException, IOException {
 
         String msg = "";
+        HttpSession session = request.getSession();
         try {
             String[] estudiants = null;
 
@@ -34,13 +36,15 @@ public class ModificarProjCommand implements Command {
             while (rs3.next()) {
                 existeix = rs3.getString("titol");
             }
-            if (request.getParameter("titol").equals("")) {
+            if(session.getAttribute("user") == null){
+                  msg = "Accés denegat";
+            }else if (request.getParameter("titol").equals("")) {
                 msg = "Has d'introduïr un títol de projecte";
             } else if ((request.getParameter("estat").equals("NoEstat"))) {
                 msg = "Has de seleccionar un estat";
             } else if (existeix.equals("")) {
                 msg = "El projecte " + request.getParameter("titol") + " no existeix a la base de dades.";
-            } else {
+            }else{
                 String estatActual = "";
                 String q = "SELECT estat FROM TFGDB.Projecte WHERE titol='" + request.getParameter("titol") + "'";
                 ResultSet rs2 = stmt.executeQuery(q);

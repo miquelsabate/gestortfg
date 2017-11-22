@@ -13,11 +13,11 @@
         <a href="<%=request.getContextPath() %>/anteriors.do"><div class="buttonMain">Projectes anteriors</div></a>
         <a href="<%=request.getContextPath() %>/tots.do"><div class="buttonMain">Tots els projectes</div></a>
         <!--<img class="headerimg" src="<%=request.getContextPath() %>/css/logo.png" alt=""/>-->
-        <% if(session.getAttribute("user") == null) {  %>
+        <%  User u = (User) session.getAttribute("user");
+            if((session.getAttribute("user") == null) || (u.getNomUsuari().equals(""))) {  %>
         <a style="float:right;" href="<%=request.getContextPath() %>/signup.jsp"><div class="buttonMain">Registrar-se</div></a>
         <a style="float:right;" href="<%=request.getContextPath() %>/login.jsp"><div class="buttonMain">Login</div></a>
-        <% }else { 
-            User u = (User) session.getAttribute("user"); %>
+        <% }else {  %>
         <a style="float:right;" href="<%=request.getContextPath() %>/signout.do"><div class="buttonMain">Tancar sessió</div></a>
         <a class="msgBenvinguda" style="float:right;" href="<%=request.getContextPath() %>/user.do"><%=u.getNomComplet()%></a>
         <% } %>
