@@ -39,7 +39,7 @@
                     out.println("<br><br>");
                     out.println("EINES DISPONIBLES<br><br>");
                     out.println("<a style='text-decoration:none;' href='proposar.jsp'><div class='button'>Proposar TFG</div></a>");
-                    out.println("<a style='text-decoration:none;' href='proposar.jsp'><div class='button'>Modificar estat TFG</div></a>");
+                    out.println("<a style='text-decoration:none;' href='modificar.jsp'><div class='button'>Modificar estat TFG</div></a>");
                     out.println("<br>");
                     out.println("</div>");
                     

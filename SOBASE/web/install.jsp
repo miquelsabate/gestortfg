@@ -65,7 +65,7 @@
             + " data_def VARCHAR (10),"
             + " qualificacio VARCHAR(5),"
             + " data_crea VARCHAR(20),"
-            + " data_mod VARCHAR(10),"
+            + " data_mod VARCHAR(20),"
             + "PRIMARY KEY(titol))",
 
             "CREATE TABLE " + dbname +".Estudi ("

@@ -65,7 +65,7 @@
     </head>
     <body>
         <% if (request.getParameter("modificar") == null) { %>
-        <p class="contenidor">Formulari de registre</p>
+        <p class="contenidor">Modificar TFG</p>
         <form class="login_form" method="post" action="modificar.do">
             <input type="text" placeholder="Títol" name="titol">
             <select onchange="habilitar(this)" name="estat" style="padding: 1rem 1rem 0;vertical-align:middle;border-color: #c8c8c8;background-color: #efefef">
