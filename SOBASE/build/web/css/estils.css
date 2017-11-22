@@ -148,3 +148,20 @@ a:hover {
     font-size:97%;
     font-weight:bolder;
 }
+
+.msgBenvinguda {
+        font-size: 11pt;
+	font-weight: bold;
+	color: #FFFFFF;
+	background-color: #c20f24;
+        height:58px;
+        float:left;
+        padding-left:10px;
+        padding-right:10px;
+        line-height:400%;
+        border: 1px solid black;
+}
+
+.msgBenvinguda:hover {
+    	background-color: #f04259;    
+}

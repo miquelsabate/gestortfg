@@ -29,6 +29,10 @@
       "class": "cat.urv.deim.sob.command.SignUpCommand"
     },
     {
+      "URI": "/signout",
+      "class": "cat.urv.deim.sob.command.SignOutCommand"
+    },
+    {
       "URI": "/proposar",
       "class": "cat.urv.deim.sob.command.ProposarProjCommand"
     }
