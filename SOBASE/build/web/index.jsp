@@ -6,6 +6,6 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <% response.sendRedirect("actius.do"); %>
+        <% response.sendRedirect("actius.do");%>
     </body>
 </html>

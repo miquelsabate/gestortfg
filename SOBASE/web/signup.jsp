@@ -7,11 +7,11 @@
 <html>
     <head>
         <link rel="stylesheet" type="text/css" href="css/estils.css">
-	<title>Gestor de TFGs - SOB</title>
+        <title>Gestor de TFGs - SOB</title>
     </head>
     <body>
-       <% if (request.getParameter("registrar") == null) { %>
-       <p class="contenidor">Formulari de registre</p>
+        <% if (request.getParameter("registrar") == null) { %>
+        <p class="contenidor">Formulari de registre</p>
         <form class="login_form" method="post" action="signup.do">
             <input type="text" placeholder="Usuari" name="user">
             <input type="password" placeholder="Contrasenya" name="pass">
@@ -23,14 +23,14 @@
             </select>
             <input class="btn_submit" type="submit" name="registrar" value="REGISTRAR">
         </form>
-        
+
         <% } else {
-                    String msg = (String) request.getAttribute("msg");
-            
-                    out.println("<div class='contenidor'>");
-                    out.println(msg);
-                    out.println("</div>");
-                   }
-            %>
+                String msg = (String) request.getAttribute("msg");
+
+                out.println("<div class='contenidor'>");
+                out.println(msg);
+                out.println("</div>");
+            }
+        %>
     </body>
 </html>

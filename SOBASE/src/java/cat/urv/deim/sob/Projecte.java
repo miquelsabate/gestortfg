@@ -10,10 +10,10 @@ public class Projecte {
     private String data_def, data_crea, data_mod, qualificacio;
     private String descripcio, recursos, estudiant, estudi;
 
-    public Projecte(String titol, String estat, String professor){
-        this.titol=titol;
-        this.estat=estat;
-        this.professor=professor;
+    public Projecte(String titol, String estat, String professor) {
+        this.titol = titol;
+        this.estat = estat;
+        this.professor = professor;
     }
 
     public String getTitol() {
@@ -47,11 +47,11 @@ public class Projecte {
     public void setQualificacio(String qualificacio) {
         this.qualificacio = qualificacio;
     }
-    
+
     private String fixNull(String in) {
         return (in == null) ? "" : in;
     }
-    
+
     public String getData_def() {
         return data_def;
     }
@@ -91,7 +91,7 @@ public class Projecte {
     public void setRecursos(String recursos) {
         this.recursos = recursos;
     }
-    
+
     public String getEstudiant() {
         return estudiant;
     }
@@ -99,7 +99,7 @@ public class Projecte {
     public void setEstudiant(String estudiant) {
         this.estudiant = estudiant;
     }
-    
+
     public String getEstudi() {
         return estudi;
     }
@@ -107,5 +107,5 @@ public class Projecte {
     public void setEstudi(String estudi) {
         this.estudi = estudi;
     }
-    
+
 }

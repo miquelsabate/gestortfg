@@ -13,22 +13,22 @@ import javax.json.JsonValue;
 
 public class ControllerServlet extends HttpServlet {
 
-     private final Map<String, Command> commands = new HashMap<>();
+    private final Map<String, Command> commands = new HashMap<>();
 
     @Override
-    public void init() throws ServletException{
+    public void init() throws ServletException {
         ServletContext ctx = getServletContext();
         InputStream input = ctx.getResourceAsStream("/WEB-INF/" + getServletConfig().getInitParameter("setup"));
         try {
             JsonReader reader = Json.createReader(input);
             JsonObject setup = reader.readObject();
-        
-            for(JsonValue value: setup.getJsonArray("commands")){
+
+            for (JsonValue value : setup.getJsonArray("commands")) {
                 JsonObject command = (JsonObject) value;
                 Class<?> clazz = Class.forName(command.getString("class"));
                 commands.put(ctx.getContextPath() + command.getString("URI") + ".do", (Command) clazz.newInstance());
             }
-        } catch(ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
             throw new ServletException(e);
         }
     }

@@ -7,10 +7,10 @@
 <html>
     <head>
         <link rel="stylesheet" type="text/css" href="css/estils.css">
-	<title>Gestor de TFGs - SOB</title>
+        <title>Gestor de TFGs - SOB</title>
     </head>
     <body>
-       <% if (session.getAttribute("user") == null) { %>
+        <% if (session.getAttribute("user") == null) { %>
         <form class="login_form" method="post" action="login.do">
             <select name="tipus" style="padding: 1rem 1rem 0;vertical-align:middle;border-color: #c8c8c8;background-color: #efefef">
                 <option value="Estudiant">ESTUDIANT</option>
@@ -20,16 +20,18 @@
             <input type="password" placeholder="&#x1F512; Contrasenya" name="pass">
             <input class="btn_submit" type="submit" name="entrar" value="ENTRAR">
         </form>
-                
+
         <% } else {
-            User user = (User) session.getAttribute("user");
-            if (user.getNomUsuari().equals("")||user.getPass().equals("")||user.getNomComplet().equals("")){
-                out.println("<div class='contenidor'>");
-                out.println("Usuari i/o contrasenya incorrectes");
-                out.println("</div>");
-                session.setAttribute("user", null);
-            } else response.sendRedirect("user.do");
+                User user = (User) session.getAttribute("user");
+                if (user.getNomUsuari().equals("") || user.getPass().equals("") || user.getNomComplet().equals("")) {
+                    out.println("<div class='contenidor'>");
+                    out.println("Usuari i/o contrasenya incorrectes");
+                    out.println("</div>");
+                    session.setAttribute("user", null);
+                } else {
+                    response.sendRedirect("user.do");
+                }
             }
-            %>
+        %>
     </body>
 </html>

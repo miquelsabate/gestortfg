@@ -117,7 +117,6 @@ public class ModificarProjCommand implements Command {
         } catch (SQLException | ClassNotFoundException e) {
             msg += "" + e;
         }
-
         request.setAttribute("msg", msg);
         ServletContext context = request.getSession().getServletContext();
         context.getRequestDispatcher("/modificar.jsp").forward(request, response);

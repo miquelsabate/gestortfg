@@ -6,8 +6,8 @@ public class User {
     private String pass;
     private String nomComplet;
     private String tipus;
-    
-    public User (String id, String pass, String nom){
+
+    public User(String id, String pass, String nom) {
         nomUsuari = id;
         this.pass = pass;
         nomComplet = nom;
@@ -36,11 +36,11 @@ public class User {
     public void setNomComplet(String nomComplet) {
         this.nomComplet = nomComplet;
     }
-    
+
     public String getTipus() {
         return fixNull(this.tipus);
     }
-    
+
     public void setTipus(String tipus) {
         this.tipus = tipus;
     }
