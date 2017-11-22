@@ -7,8 +7,7 @@ public class Projecte {
     private String titol;
     private String estat;
     private String professor;
-    private float qualificacio;
-    private Date data_def, data_crea, data_mod;
+    private String data_def, data_crea, data_mod, qualificacio;
     private String descripcio, recursos, estudiant, estudi;
 
     public Projecte(String titol, String estat, String professor){
@@ -41,11 +40,11 @@ public class Projecte {
         this.professor = professor;
     }
 
-    public float getQualificacio() {
+    public String getQualificacio() {
         return (this.qualificacio);
     }
 
-    public void setQualificacio(float qualificacio) {
+    public void setQualificacio(String qualificacio) {
         this.qualificacio = qualificacio;
     }
     
@@ -53,15 +52,15 @@ public class Projecte {
         return (in == null) ? "" : in;
     }
     
-    public Date getData_def() {
+    public String getData_def() {
         return data_def;
     }
 
-    public Date getData_crea() {
+    public String getData_crea() {
         return data_crea;
     }
 
-    public Date getData_mod() {
+    public String getData_mod() {
         return data_mod;
     }
 
@@ -73,15 +72,15 @@ public class Projecte {
         return recursos;
     }
 
-    public void setData_def(Date data_def) {
+    public void setData_def(String data_def) {
         this.data_def = data_def;
     }
 
-    public void setData_crea(Date data_crea) {
+    public void setData_crea(String data_crea) {
         this.data_crea = data_crea;
     }
 
-    public void setData_mod(Date data_mod) {
+    public void setData_mod(String data_mod) {
         this.data_mod = data_mod;
     }
 

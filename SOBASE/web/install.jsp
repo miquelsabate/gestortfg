@@ -62,10 +62,10 @@
             + " descripcio VARCHAR(140),"
             + " estat VARCHAR(20),"
             + " recursos VARCHAR(250),"
-            + " data_def DATE,"
-            + " qualificacio FLOAT(4),"
-            + " data_crea DATE,"
-            + " data_mod DATE,"
+            + " data_def VARCHAR (10),"
+            + " qualificacio VARCHAR(5),"
+            + " data_crea VARCHAR(20),"
+            + " data_mod VARCHAR(10),"
             + "PRIMARY KEY(titol))",
 
             "CREATE TABLE " + dbname +".Estudi ("
@@ -101,7 +101,7 @@
         String data[] = new String[]{
             "INSERT INTO " + dbname + ".Professor (nom_usuari, contrasenya, nom_complert) VALUES ('msabate', 'miquel', 'Miquel Sabaté')",
             "INSERT INTO " + dbname + ".Estudiant (nom_usuari, contrasenya, nom_complert) VALUES ('dflores', 'david', 'David Flores')",
-            "INSERT INTO " + dbname + ".Projecte (titol, descripcio, estat, recursos, qualificacio) VALUES ('Web 2.0 i noves tecnologies', 'descripcio noves tecnologies', 'Assignat', 'web_info', 6.45)",
+            "INSERT INTO " + dbname + ".Projecte (titol, descripcio, estat, recursos, qualificacio) VALUES ('Web 2.0 i noves tecnologies', 'descripcio noves tecnologies', 'Assignat', 'web_info', '6.45')",
             "INSERT INTO " + dbname + ".Estudi (id) VALUES ('GEI')",
             "INSERT INTO " + dbname + ".Relacio (titol, professor, estudiant, estudi) VALUES ('Web 2.0 i noves tecnologies', 'msabate', 'dflores', 'GEI')"
         };
@@ -132,15 +132,15 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Force database installation</title>
     </head>
-    <style>
+    <body>
+        <style>
         .error {
             color: red;
         }
         pre {
             color: green;
         }
-    </style>
-    <body>
+        </style>
         <h2>Database initialization in progress</h2>
         <%
             List<String> messages = resetDatabase(true);

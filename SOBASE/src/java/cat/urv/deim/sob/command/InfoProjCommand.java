@@ -36,10 +36,10 @@ public class InfoProjCommand implements Command {
                     p = new Projecte(rs.getString("titol"),rs.getString("estat"),"");
                     p.setDescripcio(rs.getString("descripcio"));
                     p.setRecursos(rs.getString("recursos"));
-                    p.setData_def(rs.getDate("data_def"));
-                    p.setQualificacio(rs.getFloat("qualificacio"));
-                    p.setData_crea(rs.getDate("data_crea"));
-                    p.setData_mod(rs.getDate("data_mod"));   
+                    p.setData_def(rs.getString("data_def"));
+                    p.setQualificacio(rs.getString("qualificacio"));
+                    p.setData_crea(rs.getString("data_crea"));
+                    p.setData_mod(rs.getString("data_mod"));   
                 titol = rs.getString("titol");
                 query2 ="SELECT professor, estudiant, estudi FROM TFGDB.Relacio WHERE titol = '"+titol+"'";
                 rs2 = stmt2.executeQuery(query2);

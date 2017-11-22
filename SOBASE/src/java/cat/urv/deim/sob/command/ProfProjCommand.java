@@ -34,7 +34,7 @@ public class ProfProjCommand implements Command {
                 query2 ="SELECT titol, estat FROM TFGDB.Projecte WHERE titol = '"+rs.getString("titol")+"'";
                 rs2 = stmt2.executeQuery(query2);
                 while(rs2.next()){
-                    p = new Projecte(titol,rs2.getString("estat"),request.getParameter("professor"));
+                    p = new Projecte("<a href='projecte.do?projecte="+rs.getString("titol")+"'>"+rs.getString("titol")+"</a>",rs2.getString("estat"),request.getParameter("professor"));
                     llista.add(p);
                 }
             }

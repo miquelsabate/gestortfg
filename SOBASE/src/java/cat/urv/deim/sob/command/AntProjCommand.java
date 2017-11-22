@@ -36,7 +36,7 @@ public class AntProjCommand implements Command {
                     //if (!(rs2.isLast())) prof += ", ";
                     }
                     p = new Projecte("<a href='projecte.do?projecte="+rs.getString("titol")+"'>"+rs.getString("titol")+"</a>",rs.getString("estat"), prof);
-                    p.setQualificacio(rs.getFloat("qualificacio"));
+                    p.setQualificacio(rs.getString("qualificacio"));
                     llista.add(p);
             }
             con.close();

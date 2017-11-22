@@ -39,6 +39,10 @@
     {
       "URI": "/proposar",
       "class": "cat.urv.deim.sob.command.ProposarProjCommand"
+    },
+    {
+      "URI": "/modificar",
+      "class": "cat.urv.deim.sob.command.ModificarProjCommand"
     }
   ]
 }

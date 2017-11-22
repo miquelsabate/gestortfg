@@ -6,6 +6,8 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletContext;
 import java.io.IOException;
 import java.sql.*;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 public class ProposarProjCommand implements Command {
 
@@ -52,7 +54,8 @@ public class ProposarProjCommand implements Command {
                 /* -------------------------------------------------------------- */
                
                 if(seguir){
-                    query = "INSERT INTO TFGDB.Projecte (titol, estat) VALUES ('"+request.getParameter("titol")+"', 'Proposat')";
+                    String timeStamp = new SimpleDateFormat("dd-MM-yyyy").format(Calendar.getInstance().getTime());
+                    query = "INSERT INTO TFGDB.Projecte (titol, estat, data_crea) VALUES ('"+request.getParameter("titol")+"', 'Proposat', '"+timeStamp+"')";
                     stmt.executeUpdate(query);
                     for (String prof : professors){
                         for (String est : estudis){
