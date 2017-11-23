@@ -25,15 +25,23 @@ public class ActiusProjCommand implements Command {
             String query2;
             ResultSet rs2;
             String prof;
+            String estudi;
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
                 prof = "";
-                query2 = "SELECT professor FROM TFGDB.Relacio WHERE titol='" + rs.getString("titol") + "'";
+                query2 = "SELECT DISTINCT professor FROM TFGDB.Relacio WHERE titol='" + rs.getString("titol") + "'";
                 rs2 = stmt2.executeQuery(query2);
                 while (rs2.next()) {
                     prof += "<a href='proj-professor.do?professor=" + rs2.getString("professor") + "'>" + rs2.getString("professor") + "</a> ";
                 }
+                estudi = "";
+                query2 = "SELECT DISTINCT estudi FROM TFGDB.Relacio WHERE titol='" + rs.getString("titol") + "'";
+                rs2 = stmt2.executeQuery(query2);
+                while (rs2.next()) {
+                    estudi += rs2.getString("estudi") + " ";
+                }
                 p = new Projecte("<a href='projecte.do?projecte=" + rs.getString("titol") + "'>" + rs.getString("titol") + "</a>", rs.getString("estat"), prof);
+                p.setEstudi(estudi);
                 llista.add(p);
             }
             con.close();

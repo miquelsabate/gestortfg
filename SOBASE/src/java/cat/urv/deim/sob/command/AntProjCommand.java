@@ -21,9 +21,10 @@ public class AntProjCommand implements Command {
             Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/TFGDB", "root", "root");
             Statement stmt = con.createStatement();
             Statement stmt2 = con.createStatement();
-            String query = "SELECT titol, estat, qualificacio FROM TFGDB.Projecte WHERE estat='Defensat' ORDER BY titol";
+            String query = "SELECT titol, estat, qualificacio FROM TFGDB.Projecte WHERE estat='Defensat' ORDER BY qualificacio DESC";
             String query2;
             ResultSet rs2;
+            String estudi;
             String prof;
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
@@ -33,9 +34,16 @@ public class AntProjCommand implements Command {
                 while (rs2.next()) {
                     prof += "<a href='proj-professor.do?professor=" + rs2.getString("professor") + "'>" + rs2.getString("professor") + "</a> ";
                 }
+                estudi = "";
+                query2 = "SELECT DISTINCT estudi FROM TFGDB.Relacio WHERE titol='" + rs.getString("titol") + "'";
+                rs2 = stmt2.executeQuery(query2);
+                while (rs2.next()) {
+                    estudi += rs2.getString("estudi") + " ";
+                }
                 p = new Projecte("<a href='projecte.do?projecte=" + rs.getString("titol") + "'>" + rs.getString("titol") + "</a>", rs.getString("estat"), prof);
-                p.setQualificacio(rs.getString("qualificacio"));
+                p.setEstudi(estudi);
                 llista.add(p);
+                p.setQualificacio(rs.getString("qualificacio"));
             }
             con.close();
         } catch (SQLException | ClassNotFoundException e) {

@@ -28,9 +28,9 @@
                     frm.qualificacio.placeholder = msg;
                 } else if (num === 2) { //ACABAT
                     frm.descripcio.disabled = true;
-                    frm.descripcio.placeholder = "Descripció"+msg2;
+                    frm.descripcio.placeholder = "Descripció" + msg2;
                     frm.estudiants.disabled = true;
-                    frm.estudiants.placeholder = "Estudiants (separats per comes sense espais)"+msg2;
+                    frm.estudiants.placeholder = "Estudiants (separats per comes sense espais)" + msg2;
                     frm.recursos.disabled = false;
                     frm.recursos.placeholder = "Recursos";
                     frm.dataDef.disabled = true;
@@ -39,24 +39,24 @@
                     frm.qualificacio.placeholder = msg;
                 } else if (num === 3) { //PENDENT DE DEF
                     frm.descripcio.disabled = true;
-                    frm.descripcio.placeholder = "Descripció"+msg2;
+                    frm.descripcio.placeholder = "Descripció" + msg2;
                     frm.estudiants.disabled = true;
-                    frm.estudiants.placeholder = "Estudiants (separats per comes sense espais)"+msg2;
+                    frm.estudiants.placeholder = "Estudiants (separats per comes sense espais)" + msg2;
                     frm.recursos.disabled = true;
-                    frm.recursos.placeholder = "Recursos"+msg2;
+                    frm.recursos.placeholder = "Recursos" + msg2;
                     frm.dataDef.disabled = false;
                     frm.dataDef.placeholder = "Data de defensa (dd-MM-yyyy)";
                     frm.qualificacio.disabled = true;
                     frm.qualificacio.placeholder = msg;
                 } else if (num === 4) { //DEFENSAT
                     frm.descripcio.disabled = true;
-                    frm.descripcio.placeholder = "Descripció"+msg2;
+                    frm.descripcio.placeholder = "Descripció" + msg2;
                     frm.estudiants.disabled = true;
-                    frm.estudiants.placeholder = "Estudiants (separats per comes sense espais)"+msg2;
+                    frm.estudiants.placeholder = "Estudiants (separats per comes sense espais)" + msg2;
                     frm.recursos.disabled = true;
-                    frm.recursos.placeholder = "Recursos"+msg2;
+                    frm.recursos.placeholder = "Recursos" + msg2;
                     frm.dataDef.disabled = true;
-                    frm.dataDef.placeholder = "Data de defensa (dd-MM-yyyy)"+msg2;
+                    frm.dataDef.placeholder = "Data de defensa (dd-MM-yyyy)" + msg2;
                     frm.qualificacio.disabled = false;
                     frm.qualificacio.placeholder = "Qualificació";
                 }
@@ -82,7 +82,7 @@
             <input type="text" placeholder="Qualificació" name="qualificacio">
             <input class="btn_submit" type="submit" name="modificar" value="MODIFICAR">
         </form>
-        
+
         <% } else {
                 String msg = (String) request.getAttribute("msg");
 

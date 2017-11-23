@@ -10,7 +10,13 @@
         <title>Gestor de TFGs - SOB</title>
     </head>
     <body>
-        <% if (session.getAttribute("user") == null) { %>
+        <%
+            out.println("<div id='errorlogin' class='contenidor'>");
+            out.println("Usuari i/o contrasenya incorrectes");
+            out.println("</div>"); %>
+        <script>
+            document.getElementById("errorlogin").style.display = "none";
+        </script>
         <form class="login_form" method="post" action="login.do">
             <select name="tipus" style="padding: 1rem 1rem 0;vertical-align:middle;border-color: #c8c8c8;background-color: #efefef">
                 <option value="Estudiant">ESTUDIANT</option>
@@ -21,17 +27,17 @@
             <input class="btn_submit" type="submit" name="entrar" value="ENTRAR">
         </form>
 
-        <% } else {
-                User user = (User) session.getAttribute("user");
-                if (user.getNomUsuari().equals("") || user.getPass().equals("") || user.getNomComplet().equals("")) {
-                    session.setAttribute("user", null);
-                    out.println("<div class='contenidor'>");
-                    out.println("Usuari i/o contrasenya incorrectes");
-                    out.println("</div>");
-                } else {
-                    response.sendRedirect("user.do");
+        <%  if (session.getAttribute("user") != null) {
+            User user = (User) session.getAttribute("user");
+            if (user.getNomUsuari().equals("") || user.getPass().equals("") || user.getNomComplet().equals("")) {
+                session.setAttribute("user", null);%>
+        <script>
+            document.getElementById("errorlogin").style.display = "block";
+        </script >
+            <%} else {
+                        response.sendRedirect("user.do");
+                    }
                 }
-            }
-        %>
+            %>
     </body>
-</html>
+        </html>
