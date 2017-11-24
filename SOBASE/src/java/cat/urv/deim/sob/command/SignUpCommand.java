@@ -11,26 +11,27 @@ public class SignUpCommand implements Command {
 
     @Override
     public void execute(HttpServletRequest request,
-            HttpServletResponse response) throws ServletException, IOException{
+            HttpServletResponse response) throws ServletException, IOException {
         String msg;
-        try{
-            if((request.getParameter("user").equals("")) || (request.getParameter("pass").equals("")) 
-                    || (request.getParameter("pass2").equals("")) || (request.getParameter("nom_complet").equals(""))){
-                  msg = "Has d'omplir tots els camps";
-            }else if (!request.getParameter("user").equals(request.getParameter("pass2"))){
-                  msg = "Les contrasenyes no coincideixen";
-            }else{
-                   Class.forName("org.apache.derby.jdbc.ClientDriver");
-                   Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/TFGDB", "root", "root");
-                    Statement stmt = con.createStatement();
-                    String query = "INSERT INTO TFGDB."+request.getParameter("tipus")+" (nom_usuari, contrasenya, nom_complert) VALUES ('"+request.getParameter("user")+"', '"+request.getParameter("pass")+"', '"+request.getParameter("nom_complet")+"')";
-                    stmt.executeUpdate(query); 
-                    msg = "S'ha afegit l'usuari "+request.getParameter("user")+" correctament";
-                }
-        }catch(SQLException | ClassNotFoundException e){ msg =""+e; }
+        try {
+            if ((request.getParameter("user").equals("")) || (request.getParameter("pass").equals(""))
+                    || (request.getParameter("pass2").equals("")) || (request.getParameter("nom_complet").equals(""))) {
+                msg = "Has d'omplir tots els camps";
+            } else if (!request.getParameter("user").equals(request.getParameter("pass2"))) {
+                msg = "Les contrasenyes no coincideixen";
+            } else {
+                Class.forName("org.apache.derby.jdbc.ClientDriver");
+                Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/TFGDB", "root", "root");
+                Statement stmt = con.createStatement();
+                String query = "INSERT INTO TFGDB." + request.getParameter("tipus") + " (nom_usuari, contrasenya, nom_complert) VALUES ('" + request.getParameter("user") + "', '" + request.getParameter("pass") + "', '" + request.getParameter("nom_complet") + "')";
+                stmt.executeUpdate(query);
+                msg = "S'ha afegit l'usuari " + request.getParameter("user") + " correctament";
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            msg = "" + e;
+        }
         request.setAttribute("msg", msg);
         ServletContext context = request.getSession().getServletContext();
         context.getRequestDispatcher("/signup.jsp").forward(request, response);
-        //response.sendRedirect("zonauser.jsp");
     }
 }
