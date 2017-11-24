@@ -5,14 +5,7 @@
 <%!
     private List<String> resetDatabase(boolean force) throws Exception {
         LinkedList<String> messages = new LinkedList();
-        /* How to customize:
-         * 1. Update the database name on dbname.
-         * 2. Create the list of tables, under tablenames[].
-         * 3. Create the list of table definition, under tables[].
-         * 4. Create the data into the above table, under data[]. 
-         * 
-         * If there is any problem, it will exit at the very first error.
-         */
+        
         String dbname = "TFGDB";
         Class.forName("org.apache.derby.jdbc.ClientDriver");
         /* this will generate database if not exist */
@@ -33,7 +26,7 @@
 
         /* drop tables if they exist */
         String tablenames[] = new String[]{
-            "Professor",};
+            "Professor", "Estudiant", "Projecte", "Estudi", "Relacio"};
         for (String tablename : tablenames) {
             try {
                 stmt.executeUpdate("DROP TABLE " + dbname + "." + tablename);
@@ -137,7 +130,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Force database installation</title>
+        <title>Inicialització Base de Dades</title>
     </head>
     <body>
         <style>
@@ -148,7 +141,7 @@
                 color: green;
             }
         </style>
-        <h2>Database initialization in progress</h2>
+        <h2>Inicialització de la DB en procés</h2>
         <%
             List<String> messages = resetDatabase(true);
             for (String message : messages) {
@@ -156,7 +149,7 @@
             }
         %>
         <!-- <button onclick="window.location = '<%//=request.getSession().getServletContext().getContextPath()%>'">Go home</button> -->
-        <button onclick="window.location = 'actius.do'">Go home</button>
+        <button onclick="window.location = 'actius.do'">Tornar a l'inici</button>
 
     </body>
 </html>
