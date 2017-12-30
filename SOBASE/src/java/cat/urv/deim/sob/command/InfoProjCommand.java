@@ -15,8 +15,10 @@ public class InfoProjCommand implements Command {
     @Override
     public void execute(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
+        String projecte = request.getParameter("projecte");
         TfgDao dao = new TfgDao();
-        dao.findByInfoProject(request, response);
+        LinkedList<Projecte> llista = dao.findByInfoProject(projecte);
+        request.setAttribute("llistat", llista);
         ServletContext context = request.getSession().getServletContext();
         context.getRequestDispatcher("/info-proj.jsp").forward(request, response);
     }

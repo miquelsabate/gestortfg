@@ -9,16 +9,16 @@ import javax.servlet.http.HttpServletResponse;
 
 public interface IDao {
 
-	public void findByActiveProjects(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
-	public void findByAnteriorProjects(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
-	public void findByInfoProject(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
-        public void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
+	public LinkedList<?> findByActiveProjects() throws ServletException, IOException;
+	public LinkedList<?> findByAnteriorProjects() throws ServletException, IOException;
+	public LinkedList<?> findByInfoProject(String projecte) throws ServletException, IOException;
+        public LinkedList<?> login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
         public void modifyProject(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
-        public void findByProfessor(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
-        public void createProject(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
+        public LinkedList<?> findByProfessor(String professor) throws ServletException, IOException;
+        public String createProject(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
         public void signOut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
         public void signUp(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
-        public void findAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
-        public void userZone(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
+        public LinkedList<?> findAll() throws ServletException, IOException;
+        public LinkedList<?> userZone(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
 
 }

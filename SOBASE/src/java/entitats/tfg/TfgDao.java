@@ -15,9 +15,7 @@ import javax.servlet.http.HttpSession;
 
 public class TfgDao implements IDao {
 	
-        @Override
-	public void findByActiveProjects(HttpServletRequest request,
-            HttpServletResponse response) throws ServletException, IOException {
+	public LinkedList<Projecte> findByActiveProjects() throws ServletException, IOException {
         Projecte p;
         LinkedList<Projecte> llista = new LinkedList<Projecte>();
         try {
@@ -51,11 +49,11 @@ public class TfgDao implements IDao {
             con.close();
         } catch (SQLException | ClassNotFoundException e) {
         }
-        request.setAttribute("llistat", llista);
+        return llista;
  }
         
-        public void findByAnteriorProjects(HttpServletRequest request,
-            HttpServletResponse response) throws ServletException, IOException {
+        @Override
+        public LinkedList<Projecte> findByAnteriorProjects() throws ServletException, IOException {
         Projecte p;
         LinkedList<Projecte> llista = new LinkedList<Projecte>();
         try {
@@ -90,11 +88,10 @@ public class TfgDao implements IDao {
             con.close();
         } catch (SQLException | ClassNotFoundException e) {
         }
-        request.setAttribute("llistat", llista);
+        return llista;
         }
         
-        public void findByInfoProject(HttpServletRequest request,
-            HttpServletResponse response) throws ServletException, IOException {
+        public LinkedList<Projecte> findByInfoProject(String projecte) throws ServletException, IOException {
         Projecte p;
         LinkedList<Projecte> llista = new LinkedList<Projecte>();
         /* -- REQUERIMENTS -- */
@@ -104,7 +101,7 @@ public class TfgDao implements IDao {
             Class.forName("org.apache.derby.jdbc.ClientDriver");
             Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/TFGDB", "root", "root");
             Statement stmt = con.createStatement();
-            String query = "SELECT titol, descripcio, estat, recursos, data_def, qualificacio, data_crea, data_mod FROM TFGDB.Projecte WHERE titol = '" + request.getParameter("projecte") + "'";
+            String query = "SELECT titol, descripcio, estat, recursos, data_def, qualificacio, data_crea, data_mod FROM TFGDB.Projecte WHERE titol = '" + projecte + "'";
             String query2;
             String titol;
             String prof = "";
@@ -147,10 +144,10 @@ public class TfgDao implements IDao {
             con.close();
         } catch (SQLException | ClassNotFoundException e) {
         }
-        request.setAttribute("llistat", llista);
+        return llista;
         }
         
-        public void login(HttpServletRequest request,
+        public LinkedList<Projecte> login(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
         User u = new User("", "", "");
         Projecte p;
@@ -180,9 +177,9 @@ public class TfgDao implements IDao {
             }
         } catch (SQLException | ClassNotFoundException e) {
         }
-        request.setAttribute("llistat", llista);
         HttpSession session = request.getSession();
         session.setAttribute("user", u);
+        return llista;
         }
         
         public void modifyProject(HttpServletRequest request,
@@ -295,8 +292,7 @@ public class TfgDao implements IDao {
         request.setAttribute("msg", msg);
         }
         
-        public void findByProfessor(HttpServletRequest request,
-            HttpServletResponse response) throws ServletException, IOException {
+        public LinkedList<Projecte> findByProfessor(String professor) throws ServletException, IOException {
         Projecte p;
         LinkedList<Projecte> llista = new LinkedList<Projecte>();
         /* -- REQUERIMENTS -- */
@@ -306,7 +302,7 @@ public class TfgDao implements IDao {
             Class.forName("org.apache.derby.jdbc.ClientDriver");
             Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/TFGDB", "root", "root");
             Statement stmt = con.createStatement();
-            String query = "SELECT DISTINCT titol FROM TFGDB.Relacio WHERE professor = '" + request.getParameter("professor") + "'";
+            String query = "SELECT DISTINCT titol FROM TFGDB.Relacio WHERE professor = '" + professor + "'";
             String query2, titol;
             Statement stmt2 = con.createStatement();
             ResultSet rs2;
@@ -316,17 +312,17 @@ public class TfgDao implements IDao {
                 query2 = "SELECT titol, estat FROM TFGDB.Projecte WHERE titol = '" + rs.getString("titol") + "'";
                 rs2 = stmt2.executeQuery(query2);
                 while (rs2.next()) {
-                    p = new Projecte("<a href='projecte.do?projecte=" + rs.getString("titol") + "'>" + rs.getString("titol") + "</a>", rs2.getString("estat"), request.getParameter("professor"));
+                    p = new Projecte("<a href='projecte.do?projecte=" + rs.getString("titol") + "'>" + rs.getString("titol") + "</a>", rs2.getString("estat"), professor);
                     llista.add(p);
                 }
             }
             con.close();
         } catch (SQLException | ClassNotFoundException e) {
         }
-        request.setAttribute("llistat", llista);
+        return llista;
         }
         
-        public void createProject(HttpServletRequest request,
+        public String createProject(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
         String msg = "";
         HttpSession session = request.getSession();
@@ -385,7 +381,7 @@ public class TfgDao implements IDao {
         } catch (SQLException | ClassNotFoundException e) {
             msg += "" + e;
         }
-        request.setAttribute("msg", msg);
+        return msg;
         }
         
         public void signOut(HttpServletRequest request,
@@ -417,8 +413,7 @@ public class TfgDao implements IDao {
         request.setAttribute("msg", msg);
         }
         
-        public void findAll(HttpServletRequest request,
-            HttpServletResponse response) throws ServletException, IOException {
+        public LinkedList<Projecte> findAll() throws ServletException, IOException {
         Projecte p;
         LinkedList<Projecte> llista = new LinkedList<Projecte>();
         try {
@@ -451,10 +446,10 @@ public class TfgDao implements IDao {
             con.close();
         } catch (SQLException | ClassNotFoundException e) {
         }
-        request.setAttribute("llistat", llista);
+        return llista;
         }
         
-        public void userZone(HttpServletRequest request,
+        public LinkedList<Projecte> userZone(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
         User u;
         Projecte p;
@@ -486,7 +481,7 @@ public class TfgDao implements IDao {
             }
         } catch (SQLException | ClassNotFoundException e) {
         }
-        request.setAttribute("llistat", llista);
+        return llista;
         }
 	
 }

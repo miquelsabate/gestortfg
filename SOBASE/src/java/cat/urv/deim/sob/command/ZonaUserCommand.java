@@ -18,7 +18,8 @@ public class ZonaUserCommand implements Command {
     public void execute(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
         TfgDao dao = new TfgDao();
-        dao.userZone(request, response);
+        LinkedList<Projecte> llista = dao.userZone(request, response);
+        request.setAttribute("llistat", llista);
         ServletContext context = request.getSession().getServletContext();
         context.getRequestDispatcher("/zonauser.jsp").forward(request, response);
     }

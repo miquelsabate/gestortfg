@@ -16,7 +16,8 @@ public class AntProjCommand implements Command {
     public void execute(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
         TfgDao dao = new TfgDao();
-        dao.findByAnteriorProjects(request, response);
+        LinkedList<Projecte> llista = dao.findByAnteriorProjects();
+        request.setAttribute("llistat", llista);
         ServletContext context = request.getSession().getServletContext();
         context.getRequestDispatcher("/anteriors.jsp").forward(request, response);
     }

@@ -18,7 +18,8 @@ public class LoginCommand implements Command {
     public void execute(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
         TfgDao dao = new TfgDao();
-        dao.login(request, response);
+        LinkedList<Projecte> llista = dao.login(request, response);
+        request.setAttribute("llistat", llista);
         ServletContext context = request.getSession().getServletContext();
         context.getRequestDispatcher("/login.jsp").forward(request, response);
     }

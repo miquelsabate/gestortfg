@@ -17,7 +17,8 @@ public class ProposarProjCommand implements Command {
     public void execute(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
         TfgDao dao = new TfgDao();
-        dao.createProject(request, response);
+        String msg = dao.createProject(request, response);
+        request.setAttribute("msg", msg);
         ServletContext context = request.getSession().getServletContext();
         context.getRequestDispatcher("/proposar.jsp").forward(request, response);
     }

@@ -15,8 +15,10 @@ public class ProfProjCommand implements Command {
     @Override
     public void execute(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
+        String professor = request.getParameter("professor");
         TfgDao dao = new TfgDao();
-        dao.findByProfessor(request, response);
+        LinkedList<Projecte> llista = dao.findByProfessor(professor);
+        request.setAttribute("llistat", llista);
         ServletContext context = request.getSession().getServletContext();
         context.getRequestDispatcher("/proj-professor.jsp").forward(request, response);
     }

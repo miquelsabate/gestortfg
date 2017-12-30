@@ -16,7 +16,8 @@ public class ActiusProjCommand implements Command {
     public void execute(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
         TfgDao dao = new TfgDao();
-        dao.findByActiveProjects(request, response);        
+        LinkedList<Projecte> llista = dao.findByActiveProjects();
+        request.setAttribute("llistat", llista);
         ServletContext context = request.getSession().getServletContext();
         context.getRequestDispatcher("/actius.jsp").forward(request, response);
     }
