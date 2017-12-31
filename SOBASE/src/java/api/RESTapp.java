@@ -10,7 +10,7 @@ import javax.ws.rs.core.Application;
  *
  * @author Administrador
  */
-@javax.ws.rs.ApplicationPath("rest/api/v1")
+@javax.ws.rs.ApplicationPath("webresources")
 public class RESTapp extends Application {
     
 }

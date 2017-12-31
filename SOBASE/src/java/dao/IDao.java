@@ -18,7 +18,7 @@ public interface IDao {
         public String createProject(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
         public void signOut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
         public void signUp(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
-        public LinkedList<?> findAll() throws ServletException, IOException;
+        public LinkedList<?> findAll(boolean api) throws ServletException, IOException; //TRUE if API is calling the method
         public LinkedList<?> userZone(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
 
 }

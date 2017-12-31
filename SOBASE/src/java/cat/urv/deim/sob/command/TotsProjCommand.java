@@ -16,7 +16,7 @@ public class TotsProjCommand implements Command {
     public void execute(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
         TfgDao dao = new TfgDao();
-        LinkedList<Projecte> llista = dao.findAll();
+        LinkedList<Projecte> llista = dao.findAll(false); //FALSE because of not API
         request.setAttribute("llistat", llista);
         ServletContext context = request.getSession().getServletContext();
         context.getRequestDispatcher("/tots.jsp").forward(request, response);

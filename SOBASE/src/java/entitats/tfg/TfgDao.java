@@ -413,7 +413,7 @@ public class TfgDao implements IDao {
         request.setAttribute("msg", msg);
         }
         
-        public LinkedList<Projecte> findAll() throws ServletException, IOException {
+        public LinkedList<Projecte> findAll(boolean api) throws ServletException, IOException {
         Projecte p;
         LinkedList<Projecte> llista = new LinkedList<Projecte>();
         try {
@@ -439,7 +439,8 @@ public class TfgDao implements IDao {
                 while (rs2.next()) {
                     estudi += rs2.getString("estudi") + " ";
                 }
-                p = new Projecte("<a href='projecte.do?projecte=" + rs.getString("titol") + "'>" + rs.getString("titol") + "</a>", rs.getString("estat"), prof);
+                if (!api) p = new Projecte("<a href='projecte.do?projecte=" + rs.getString("titol") + "'>" + rs.getString("titol") + "</a>", rs.getString("estat"), prof);
+                else p = new Projecte(rs.getString("titol"), rs.getString("estat"), prof);
                 p.setEstudi(estudi);
                 llista.add(p);
             }

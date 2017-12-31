@@ -7,9 +7,11 @@ package api;
 import cat.urv.deim.sob.Projecte;
 import entitats.tfg.TfgDao;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import javax.ejb.Stateless;
+import javax.json.Json;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.servlet.ServletException;
@@ -23,34 +25,72 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 import javax.json.*;
+import javax.ws.rs.core.MediaType;
+
+// ---> http://localhost:8080/SOBASE/webresources/rest/api/v1/METHOD
 
 //@Stateless
-//@Path("sob.lab9_ws.customer")
+@Path("/rest/api/v1")
 public class TfgREST {
 
     @GET
     @Path("/tfg")
-    @Produces({"application/json"})
+    @Produces(MediaType.APPLICATION_JSON)
     public Response findAll() throws ServletException, IOException {
         TfgDao dao = new TfgDao();
-        LinkedList<Projecte> llista = dao.findAll();
+        LinkedList<Projecte> llista = dao.findAll(true); //TRUE because of API
+ 
+        JsonArrayBuilder array = Json.createArrayBuilder();
         
-        JsonObject responseDetailsJson = new JsonObject();
-        JsonArray array = Json.createArrayBuilder().build();
-
-        for(Projecte p : llista) {
-            
+        for(Projecte p : llista){
+           array.add(p.getTitol());
         }
-    responseDetailsJson.put("forms", jsonArray);//Here you can see the data in json format
 
-    return cartList;
-
-        
-return Response.ok(jo).build();
-        
+        return Response.ok(array.build()).build();    
     }
     
-    @POST
+    @GET
+    @Path("/${id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response findByProject(@PathParam("id") String id) throws ServletException, IOException {
+        TfgDao dao = new TfgDao();
+        LinkedList<Projecte> llista = dao.findByInfoProject(id);
+ 
+        JsonObjectBuilder jo = Json.createObjectBuilder();
+        //JsonArrayBuilder array = Json.createArrayBuilder();
+        
+        for(Projecte p : llista){
+            jo.add("Títol", p.getTitol());
+            jo.add("Estat", p.getEstat());
+            jo.add("Professors/s", p.getProfessor());
+            jo.add("Estudi/s", p.getEstudi());
+            if (p.getEstudiant() != null) {
+                jo.add("Estudiant/s", p.getEstudiant());
+            }
+            if (p.getDescripcio() != null) {
+                jo.add("Descripció", p.getDescripcio());
+            }
+            if (p.getRecursos() != null) {
+                jo.add("Recursos", p.getRecursos());
+            }
+            if (p.getData_crea() != null) {
+               jo.add("Data creació", p.getData_crea());
+            }
+            if (p.getData_mod() != null) {
+                jo.add("Data modificació", p.getData_mod());
+            }
+            if (p.getData_def() != null) {
+                jo.add("Data defensa", p.getData_def());
+            }
+            if (p.getQualificacio() != null) {
+                jo.add("Qualificació", p.getQualificacio());
+            }       
+        }
+
+        return Response.ok(jo.build()).build();    
+    }
+    
+    /*@POST
     @Consumes({"application/xml", "application/json"})
     public void create() {
     }
