@@ -14,11 +14,13 @@ public interface IDao {
 	public LinkedList<?> findByInfoProject(String projecte) throws ServletException, IOException;
         public LinkedList<?> login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
         public void modifyProject(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
-        public LinkedList<?> findByProfessor(String professor) throws ServletException, IOException;
+        public LinkedList<?> findByProfessor(String professor, boolean api) throws ServletException, IOException; //TRUE if API is calling the method
         public String createProject(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
         public void signOut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
         public void signUp(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
         public LinkedList<?> findAll(boolean api) throws ServletException, IOException; //TRUE if API is calling the method
         public LinkedList<?> userZone(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
-
+        public LinkedList<?> findProfWithProjects();
+        public LinkedList<?> findInfoProf(String professor);
+        public LinkedList<?> findByState(String state);
 }

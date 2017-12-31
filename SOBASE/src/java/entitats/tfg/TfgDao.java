@@ -292,12 +292,10 @@ public class TfgDao implements IDao {
         request.setAttribute("msg", msg);
         }
         
-        public LinkedList<Projecte> findByProfessor(String professor) throws ServletException, IOException {
+        public LinkedList<Projecte> findByProfessor(String professor, boolean api) throws ServletException, IOException {
         Projecte p;
         LinkedList<Projecte> llista = new LinkedList<Projecte>();
-        /* -- REQUERIMENTS -- */
 
- /* ------------------ */
         try {
             Class.forName("org.apache.derby.jdbc.ClientDriver");
             Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/TFGDB", "root", "root");
@@ -312,7 +310,8 @@ public class TfgDao implements IDao {
                 query2 = "SELECT titol, estat FROM TFGDB.Projecte WHERE titol = '" + rs.getString("titol") + "'";
                 rs2 = stmt2.executeQuery(query2);
                 while (rs2.next()) {
-                    p = new Projecte("<a href='projecte.do?projecte=" + rs.getString("titol") + "'>" + rs.getString("titol") + "</a>", rs2.getString("estat"), professor);
+                    if(!api) p = new Projecte("<a href='projecte.do?projecte=" + rs.getString("titol") + "'>" + rs.getString("titol") + "</a>", rs2.getString("estat"), professor);
+                    else p = new Projecte(rs.getString("titol"), rs2.getString("estat"), professor);
                     llista.add(p);
                 }
             }
@@ -484,5 +483,62 @@ public class TfgDao implements IDao {
         }
         return llista;
         }
-	
+        
+        public LinkedList<String> findProfWithProjects(){
+        Projecte p;
+        LinkedList<String> llista = new LinkedList<String>();
+        try {
+            Class.forName("org.apache.derby.jdbc.ClientDriver");
+            Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/TFGDB", "root", "root");
+            Statement stmt = con.createStatement();
+            Statement stmt2 = con.createStatement();
+            String query = "SELECT DISTINCT professor FROM TFGDB.Relacio";
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                llista.add(rs.getString("professor"));
+            }
+            con.close();
+        } catch (SQLException | ClassNotFoundException e) {
+        }
+        return llista;
+        }
+        
+        public LinkedList<User> findInfoProf(String professor){
+        User u;
+        LinkedList<User> llista = new LinkedList<User>();
+
+        try {
+            Class.forName("org.apache.derby.jdbc.ClientDriver");
+            Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/TFGDB", "root", "root");
+            Statement stmt = con.createStatement();
+            String query = "SELECT DISTINCT nom_usuari, nom_complert FROM TFGDB.Professor WHERE nom_usuari = '" + professor + "'";
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                u = new User(rs.getString("nom_usuari"), null, rs.getString("nom_complert"));
+                llista.add(u);
+            }
+            con.close();
+        } catch (SQLException | ClassNotFoundException e) {
+        }
+        return llista;
+        }
+        
+        public LinkedList<String> findByState(String state){
+            
+        LinkedList<String> llista = new LinkedList<String>();
+        
+        try {
+            Class.forName("org.apache.derby.jdbc.ClientDriver");
+            Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/TFGDB", "root", "root");
+            Statement stmt = con.createStatement();
+            String query = "SELECT DISTINCT titol FROM TFGDB.Projecte WHERE estat = '" + state + "'";
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                llista.add(rs.getString("titol"));
+                }
+            con.close();
+        } catch (SQLException | ClassNotFoundException e) {
+        }
+        return llista;
+        }
 }

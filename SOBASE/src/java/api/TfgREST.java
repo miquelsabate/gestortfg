@@ -7,19 +7,10 @@ package api;
 import cat.urv.deim.sob.Projecte;
 import entitats.tfg.TfgDao;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
-import javax.ejb.Stateless;
 import javax.json.Json;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.servlet.ServletException;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -27,14 +18,14 @@ import javax.ws.rs.core.Response;
 import javax.json.*;
 import javax.ws.rs.core.MediaType;
 
-// ---> http://localhost:8080/SOBASE/webresources/rest/api/v1/METHOD
+// ---> http://localhost:8080/SOBASE/webresources/rest/api/v1/tfg/METHOD
 
 //@Stateless
-@Path("/rest/api/v1")
+@Path("/rest/api/v1/tfg")
 public class TfgREST {
 
     @GET
-    @Path("/tfg")
+    @Path("")
     @Produces(MediaType.APPLICATION_JSON)
     public Response findAll() throws ServletException, IOException {
         TfgDao dao = new TfgDao();
@@ -50,7 +41,23 @@ public class TfgREST {
     }
     
     @GET
-    @Path("/${id}")
+    @Path("/state={state}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response findByState(@PathParam("state") String state) throws ServletException, IOException {
+        TfgDao dao = new TfgDao();
+        LinkedList<String> llista = dao.findByState(state);
+ 
+        //JsonObjectBuilder jo = Json.createObjectBuilder();
+        JsonArrayBuilder array = Json.createArrayBuilder();
+        
+        for(String p : llista){
+            array.add(p);
+        }
+        return Response.ok(array.build()).build();    
+    }
+    
+    @GET
+    @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response findByProject(@PathParam("id") String id) throws ServletException, IOException {
         TfgDao dao = new TfgDao();
@@ -86,7 +93,6 @@ public class TfgREST {
                 jo.add("Qualificació", p.getQualificacio());
             }       
         }
-
         return Response.ok(jo.build()).build();    
     }
     

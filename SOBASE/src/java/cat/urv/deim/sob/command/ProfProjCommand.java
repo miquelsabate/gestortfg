@@ -17,7 +17,7 @@ public class ProfProjCommand implements Command {
             HttpServletResponse response) throws ServletException, IOException {
         String professor = request.getParameter("professor");
         TfgDao dao = new TfgDao();
-        LinkedList<Projecte> llista = dao.findByProfessor(professor);
+        LinkedList<Projecte> llista = dao.findByProfessor(professor, false); //FALSE because of not API
         request.setAttribute("llistat", llista);
         ServletContext context = request.getSession().getServletContext();
         context.getRequestDispatcher("/proj-professor.jsp").forward(request, response);
