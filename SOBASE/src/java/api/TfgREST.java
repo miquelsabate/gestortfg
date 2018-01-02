@@ -8,15 +8,12 @@ import cat.urv.deim.sob.Projecte;
 import entitats.tfg.TfgDao;
 import java.io.IOException;
 import java.util.LinkedList;
+import java.util.List;
 import javax.json.Json;
 import javax.servlet.ServletException;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.Response;
+import javax.ws.rs.*;
+import javax.ws.rs.core.*;
 import javax.json.*;
-import javax.ws.rs.core.MediaType;
 
 // ---> http://localhost:8080/SOBASE/webresources/rest/api/v1/tfg/METHOD
 
@@ -25,39 +22,33 @@ import javax.ws.rs.core.MediaType;
 public class TfgREST {
 
     @GET
-    @Path("")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response findAll() throws ServletException, IOException {
+    public Response findAll(@QueryParam("state") List<String> state) throws ServletException, IOException {
         TfgDao dao = new TfgDao();
-        LinkedList<Projecte> llista = dao.findAll(true); //TRUE because of API
- 
         JsonArrayBuilder array = Json.createArrayBuilder();
         
-        for(Projecte p : llista){
-           array.add(p.getTitol());
+        if(state.isEmpty()){
+            LinkedList<Projecte> llista = dao.findAll(true); //TRUE because of API
+        
+            for(Projecte p : llista){
+               array.add(p.getTitol());
+            }
+        }
+        else{
+            LinkedList<String> projs;
+            for (String s : state){
+                projs = dao.findByState(s);
+                for (String x : projs){
+                    array.add(x);
+                }
+            }
         }
 
         return Response.ok(array.build()).build();    
     }
     
     @GET
-    @Path("/state={state}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response findByState(@PathParam("state") String state) throws ServletException, IOException {
-        TfgDao dao = new TfgDao();
-        LinkedList<String> llista = dao.findByState(state);
- 
-        //JsonObjectBuilder jo = Json.createObjectBuilder();
-        JsonArrayBuilder array = Json.createArrayBuilder();
-        
-        for(String p : llista){
-            array.add(p);
-        }
-        return Response.ok(array.build()).build();    
-    }
-    
-    @GET
-    @Path("/{id}")
+    @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response findByProject(@PathParam("id") String id) throws ServletException, IOException {
         TfgDao dao = new TfgDao();
@@ -96,12 +87,18 @@ public class TfgREST {
         return Response.ok(jo.build()).build();    
     }
     
-    /*@POST
-    @Consumes({"application/xml", "application/json"})
-    public void create() {
-    }
+    @POST
+    @Path("{id}/assign")
+    @Consumes("application/json")
+    public Response createProjectInJSON(@PathParam("id") String id, Projecte product) {
 
-    @PUT
+	System.out.println(id);
+        String result = "Product created : " + product;
+	return Response.status(201).entity(result).build();
+
+	}
+
+    /*@PUT
     @Consumes({"application/xml", "application/json"})
     public void edit() {
     }
