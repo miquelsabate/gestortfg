@@ -661,10 +661,29 @@ public class TfgDao implements IDao {
             Statement stmt = con.createStatement();
             String query;
             for (String s : est) {
-                query = "INSERT INTO TFGDB.Relacio (estudiant, professor, titol, estudi) VALUES ('" + s + "', '" + professor + "', '" + titol + "', '" + estudi+"')";
+                query = "INSERT INTO TFGDB.Relacio (estudiant, professor, titol, estudi) VALUES ('" + s + "', '" + professor + "', '" + titol + "', '" + estudi + "')";
                 stmt.executeUpdate(query);
             }
             msg = "Assignació realitzada correctament.";
+            con.close();
+        } catch (SQLException | ClassNotFoundException e) {
+            msg = e.toString();
+        }
+        return msg;
+    }
+
+    public String deleteProjectAPI(String titol) {
+        String msg = "";
+        try {
+            Class.forName("org.apache.derby.jdbc.ClientDriver");
+            Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/TFGDB", "root", "root");
+            Statement stmt = con.createStatement();
+            String query = "DELETE FROM TFGDB.Relacio WHERE (titol='"+titol+"')";
+            stmt.executeQuery(query);
+            String query2 = "DELETE FROM TFGDB.Projecte WHERE (titol='"+titol+"')";
+            stmt.executeQuery(query2);
+
+            msg = titol+" eliminat correctament.";
             con.close();
         } catch (SQLException | ClassNotFoundException e) {
             msg = e.toString();

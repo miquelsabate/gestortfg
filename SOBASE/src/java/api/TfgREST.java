@@ -132,6 +132,47 @@ public class TfgREST {
 
     }
 
+    
+    @DELETE
+    @Path("{id}")
+    //@Consumes("application/json")
+    public Response deleteProject(@PathParam("id") String id, JsonObject projecte) throws ServletException, IOException {
+        String result = null;
+        boolean check = false;
+        boolean checkOwn = false;
+        if (projecte.get("user") == null || projecte.get("pass") == null) {
+            result = "Format del Json incorrecte";
+        } else {
+            TfgDao dao = new TfgDao();
+            check = dao.checkUser(projecte.get("user").toString().substring(1, projecte.get("user").toString().length() - 1), projecte.get("pass").toString().substring(1, projecte.get("pass").toString().length() - 1));
+            checkOwn = dao.checkOwner(projecte.get("user").toString().substring(1, projecte.get("user").toString().length() - 1), id);
+            System.out.println(check +" "+ checkOwn);
+            if (check && checkOwn) {
+                result = dao.deleteProjectAPI(id);
+            } else {
+                result = "Accès denegat, requereix d'autenticació com a professor al JSON o ser professor coordinador.";
+            }
+        }
+        return Response.status(201).entity(result).build();
+
+    }
+/*
+    @DELETE
+    @Path("{id}")
+    //@Consumes("application/json")
+    public Response deleteProject(@PathParam("id") String id) throws ServletException, IOException {
+        String result = null;
+        boolean check = false;
+        boolean checkOwn = false;
+
+        TfgDao dao = new TfgDao();
+
+        result = dao.deleteProjectAPI(id);
+
+        return Response.status(201).entity(result).build();
+
+    }*/
+
     /*@PUT
     @Consumes({"application/xml", "application/json"})
     public void edit() {
