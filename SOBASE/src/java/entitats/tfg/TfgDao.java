@@ -609,4 +609,66 @@ public class TfgDao implements IDao {
         }
         return msg;
     }
+
+    @Override
+    public boolean checkUser(String user, String pass) {
+        boolean result = false;
+
+        try {
+            Class.forName("org.apache.derby.jdbc.ClientDriver");
+            Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/TFGDB", "root", "root");
+            Statement stmt = con.createStatement();
+            String query = "SELECT DISTINCT nom_usuari, contrasenya FROM TFGDB.Professor WHERE nom_usuari = '" + user + "'";
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                if (rs.getString("nom_usuari").equals(user) && rs.getString("contrasenya").equals(pass)) {
+                    result = true;
+                }
+            }
+            con.close();
+        } catch (SQLException | ClassNotFoundException e) {
+        }
+        return result;
+    }
+
+    @Override
+    public boolean checkOwner(String user, String titol) {
+        boolean result = false;
+
+        try {
+            Class.forName("org.apache.derby.jdbc.ClientDriver");
+            Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/TFGDB", "root", "root");
+            Statement stmt = con.createStatement();
+            String query = "SELECT DISTINCT professor FROM TFGDB.Relacio WHERE titol = '" + titol + "'";
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                if (rs.getString("professor").equals(user)) {
+                    result = true;
+                }
+            }
+            con.close();
+        } catch (SQLException | ClassNotFoundException e) {
+        }
+        return result;
+    }
+
+    public String assignProjectAPI(String estudiants, String professor, String estudi, String titol) {
+        String msg = "";
+        String[] est = estudiants.split(",");
+        try {
+            Class.forName("org.apache.derby.jdbc.ClientDriver");
+            Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/TFGDB", "root", "root");
+            Statement stmt = con.createStatement();
+            String query;
+            for (String s : est) {
+                query = "INSERT INTO TFGDB.Relacio (estudiant, professor, titol, estudi) VALUES ('" + s + "', '" + professor + "', '" + titol + "', '" + estudi+"')";
+                stmt.executeUpdate(query);
+            }
+            msg = "Assignació realitzada correctament.";
+            con.close();
+        } catch (SQLException | ClassNotFoundException e) {
+            msg = e.toString();
+        }
+        return msg;
+    }
 }

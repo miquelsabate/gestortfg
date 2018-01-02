@@ -36,8 +36,8 @@ public class TfgREST {
             LinkedList<String> projs;
             String st;
             for (String s : state) {
-                s= s.toLowerCase();
-                st = Character.toUpperCase(s.charAt(0)) + s.substring(1,s.length());
+                s = s.toLowerCase();
+                st = Character.toUpperCase(s.charAt(0)) + s.substring(1, s.length());
                 projs = dao.findByState(st);
                 for (String x : projs) {
                     array.add(x);
@@ -90,18 +90,44 @@ public class TfgREST {
 
     @POST
     @Consumes("application/json")
-    public Response createProject(@PathParam("id") String id, JsonObject projecte) throws ServletException, IOException {
+    public Response createProject(JsonObject projecte) throws ServletException, IOException {
 
         String result = null;
-        if (projecte.get("titol") == null || projecte.get("professors") == null || projecte.get("estudis") == null) {
+        boolean check = false;
+        if (projecte.get("titol") == null || projecte.get("professors") == null || projecte.get("estudis") == null || projecte.get("user") == null || projecte.get("pass") == null) {
             result = "Format del Json incorrecte";
         } else {
             TfgDao dao = new TfgDao();
-            result = dao.createProjectAPI(projecte.get("titol").toString().substring(1, projecte.get("titol").toString().length() - 1), projecte.get("professors").toString().substring(1, projecte.get("professors").toString().length() - 1), projecte.get("estudis").toString().substring(1, projecte.get("estudis").toString().length() - 1));
-            //result = "Projecte Creat\nTítol: " + projecte.get("titol") + "\nProfessors: " + projecte.get("professors") + "\nEstudis: " + projecte.get("estudis");
-
+            check = dao.checkUser(projecte.get("user").toString().substring(1, projecte.get("user").toString().length() - 1), projecte.get("pass").toString().substring(1, projecte.get("pass").toString().length() - 1));
+            if (check) {
+                result = dao.createProjectAPI(projecte.get("titol").toString().substring(1, projecte.get("titol").toString().length() - 1), projecte.get("professors").toString().substring(1, projecte.get("professors").toString().length() - 1), projecte.get("estudis").toString().substring(1, projecte.get("estudis").toString().length() - 1));
+            } else {
+                result = "Accès denegat, requereix d'autenticació com a professor al JSON.";
+            }
         }
+        return Response.status(201).entity(result).build();
 
+    }
+
+    @POST
+    @Path("{id}/assign")
+    @Consumes("application/json")
+    public Response assignProject(@PathParam("id") String id, JsonObject projecte) throws ServletException, IOException {
+        String result = null;
+        boolean check = false;
+        boolean checkOwn = false;
+        if (projecte.get("estudiants") == null || projecte.get("user") == null || projecte.get("pass") == null || projecte.get("estudi") == null) {
+            result = "Format del Json incorrecte";
+        } else {
+            TfgDao dao = new TfgDao();
+            check = dao.checkUser(projecte.get("user").toString().substring(1, projecte.get("user").toString().length() - 1), projecte.get("pass").toString().substring(1, projecte.get("pass").toString().length() - 1));
+            checkOwn = dao.checkOwner(projecte.get("user").toString().substring(1, projecte.get("user").toString().length() - 1), id);
+            if (check && checkOwn) {
+                result = dao.assignProjectAPI(projecte.get("estudiants").toString().substring(1, projecte.get("estudiants").toString().length() - 1), projecte.get("user").toString().substring(1, projecte.get("user").toString().length() - 1), projecte.get("estudi").toString().substring(1, projecte.get("estudi").toString().length() - 1), id);
+            } else {
+                result = "Accès denegat, requereix d'autenticació com a professor al JSON o ser professor coordinador.";
+            }
+        }
         return Response.status(201).entity(result).build();
 
     }

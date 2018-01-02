@@ -22,8 +22,10 @@
                 out.println("Professor/s<br>");
                 out.println("<div class='infoContenidor'>" + proj.getProfessor() + "</div><br>");
                 out.println("Estudi<br>");
+                proj.setEstudi(proj.getEstudi().replace("null", ""));
                 out.println("<div class='infoContenidor'>" + proj.getEstudi() + "</div><br>");
                 if (proj.getEstudiant() != null) {
+                    proj.setEstudiant(proj.getEstudiant().replace("null", ""));
                     out.println("Estudiant/s<br>");
                     out.println("<div class='infoContenidor'>" + proj.getEstudiant() + "</div><br>");
                 }

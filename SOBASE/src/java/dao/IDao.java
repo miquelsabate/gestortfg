@@ -24,4 +24,9 @@ public interface IDao {
         public LinkedList<?> findProfWithProjects();
         public LinkedList<?> findInfoProf(String professor);
         public LinkedList<?> findByState(String state);
+        public boolean checkUser(String user, String pass);
+        public boolean checkOwner(String user, String titol);
+        public String assignProjectAPI(String estudiants, String professor, String estudi, String titol);
+
+
 }
