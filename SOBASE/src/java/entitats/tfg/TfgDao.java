@@ -14,8 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 public class TfgDao implements IDao {
-	
-	public LinkedList<Projecte> findByActiveProjects() throws ServletException, IOException {
+
+    public LinkedList<Projecte> findByActiveProjects() throws ServletException, IOException {
         Projecte p;
         LinkedList<Projecte> llista = new LinkedList<Projecte>();
         try {
@@ -50,10 +50,10 @@ public class TfgDao implements IDao {
         } catch (SQLException | ClassNotFoundException e) {
         }
         return llista;
- }
-        
-        @Override
-        public LinkedList<Projecte> findByAnteriorProjects() throws ServletException, IOException {
+    }
+
+    @Override
+    public LinkedList<Projecte> findByAnteriorProjects() throws ServletException, IOException {
         Projecte p;
         LinkedList<Projecte> llista = new LinkedList<Projecte>();
         try {
@@ -89,19 +89,19 @@ public class TfgDao implements IDao {
         } catch (SQLException | ClassNotFoundException e) {
         }
         return llista;
-        }
-        
-        public LinkedList<Projecte> findByInfoProject(String projecte) throws ServletException, IOException {
+    }
+
+    public LinkedList<Projecte> findByInfoProject(String projecte) throws ServletException, IOException {
         Projecte p;
         LinkedList<Projecte> llista = new LinkedList<Projecte>();
         /* -- REQUERIMENTS -- */
 
-        /* ------------------ */
+ /* ------------------ */
         try {
             Class.forName("org.apache.derby.jdbc.ClientDriver");
             Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/TFGDB", "root", "root");
             Statement stmt = con.createStatement();
-            String query = "SELECT titol, descripcio, estat, recursos, data_def, qualificacio, data_crea, data_mod FROM TFGDB.Projecte WHERE titol = '" + projecte + "'";
+            String query = "SELECT DISTINCT titol, descripcio, estat, recursos, data_def, qualificacio, data_crea, data_mod FROM TFGDB.Projecte WHERE titol = '" + projecte + "'";
             String query2;
             String titol;
             String prof = "";
@@ -145,9 +145,9 @@ public class TfgDao implements IDao {
         } catch (SQLException | ClassNotFoundException e) {
         }
         return llista;
-        }
-        
-        public LinkedList<Projecte> login(HttpServletRequest request,
+    }
+
+    public LinkedList<Projecte> login(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
         User u = new User("", "", "");
         Projecte p;
@@ -180,9 +180,9 @@ public class TfgDao implements IDao {
         HttpSession session = request.getSession();
         session.setAttribute("user", u);
         return llista;
-        }
-        
-        public void modifyProject(HttpServletRequest request,
+    }
+
+    public void modifyProject(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
         String msg = "";
         HttpSession session = request.getSession();
@@ -204,15 +204,15 @@ public class TfgDao implements IDao {
             while (rs3.next()) {
                 existeix = rs3.getString("titol");
             }
-            if(session.getAttribute("user") == null){
-                  msg = "Accés denegat";
-            }else if (request.getParameter("titol").equals("")) {
+            if (session.getAttribute("user") == null) {
+                msg = "Accés denegat";
+            } else if (request.getParameter("titol").equals("")) {
                 msg = "Has d'introduïr un títol de projecte";
             } else if ((request.getParameter("estat").equals("NoEstat"))) {
                 msg = "Has de seleccionar un estat";
             } else if (existeix.equals("")) {
                 msg = "El projecte " + request.getParameter("titol") + " no existeix a la base de dades.";
-            }else{
+            } else {
                 String estatActual = "";
                 String q = "SELECT estat FROM TFGDB.Projecte WHERE titol='" + request.getParameter("titol") + "'";
                 ResultSet rs2 = stmt.executeQuery(q);
@@ -290,9 +290,9 @@ public class TfgDao implements IDao {
             msg += "" + e;
         }
         request.setAttribute("msg", msg);
-        }
-        
-        public LinkedList<Projecte> findByProfessor(String professor, boolean api) throws ServletException, IOException {
+    }
+
+    public LinkedList<Projecte> findByProfessor(String professor, boolean api) throws ServletException, IOException {
         Projecte p;
         LinkedList<Projecte> llista = new LinkedList<Projecte>();
 
@@ -310,8 +310,11 @@ public class TfgDao implements IDao {
                 query2 = "SELECT titol, estat FROM TFGDB.Projecte WHERE titol = '" + rs.getString("titol") + "'";
                 rs2 = stmt2.executeQuery(query2);
                 while (rs2.next()) {
-                    if(!api) p = new Projecte("<a href='projecte.do?projecte=" + rs.getString("titol") + "'>" + rs.getString("titol") + "</a>", rs2.getString("estat"), professor);
-                    else p = new Projecte(rs.getString("titol"), rs2.getString("estat"), professor);
+                    if (!api) {
+                        p = new Projecte("<a href='projecte.do?projecte=" + rs.getString("titol") + "'>" + rs.getString("titol") + "</a>", rs2.getString("estat"), professor);
+                    } else {
+                        p = new Projecte(rs.getString("titol"), rs2.getString("estat"), professor);
+                    }
                     llista.add(p);
                 }
             }
@@ -319,9 +322,9 @@ public class TfgDao implements IDao {
         } catch (SQLException | ClassNotFoundException e) {
         }
         return llista;
-        }
-        
-        public String createProject(HttpServletRequest request,
+    }
+
+    public String createProject(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
         String msg = "";
         HttpSession session = request.getSession();
@@ -381,15 +384,15 @@ public class TfgDao implements IDao {
             msg += "" + e;
         }
         return msg;
-        }
-        
-        public void signOut(HttpServletRequest request,
+    }
+
+    public void signOut(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         session.setAttribute("user", null);
-        }
-        
-        public void signUp(HttpServletRequest request,
+    }
+
+    public void signUp(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
         String msg;
         try {
@@ -410,9 +413,9 @@ public class TfgDao implements IDao {
             msg = "" + e;
         }
         request.setAttribute("msg", msg);
-        }
-        
-        public LinkedList<Projecte> findAll(boolean api) throws ServletException, IOException {
+    }
+
+    public LinkedList<Projecte> findAll(boolean api) throws ServletException, IOException {
         Projecte p;
         LinkedList<Projecte> llista = new LinkedList<Projecte>();
         try {
@@ -420,14 +423,14 @@ public class TfgDao implements IDao {
             Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/TFGDB", "root", "root");
             Statement stmt = con.createStatement();
             Statement stmt2 = con.createStatement();
-            String query = "SELECT titol, estat FROM TFGDB.Projecte ORDER BY titol";
+            String query = "SELECT DISTINCT titol, estat FROM TFGDB.Projecte ORDER BY titol";
             String query2;
             ResultSet rs2;
             String estudi, prof;
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
                 prof = "";
-                query2 = "SELECT professor FROM TFGDB.Relacio WHERE titol='" + rs.getString("titol") + "'";
+                query2 = "SELECT DISTINCT professor FROM TFGDB.Relacio WHERE titol='" + rs.getString("titol") + "'";
                 rs2 = stmt2.executeQuery(query2);
                 while (rs2.next()) {
                     prof += "<a href='proj-professor.do?professor=" + rs2.getString("professor") + "'>" + rs2.getString("professor") + "</a> ";
@@ -438,8 +441,11 @@ public class TfgDao implements IDao {
                 while (rs2.next()) {
                     estudi += rs2.getString("estudi") + " ";
                 }
-                if (!api) p = new Projecte("<a href='projecte.do?projecte=" + rs.getString("titol") + "'>" + rs.getString("titol") + "</a>", rs.getString("estat"), prof);
-                else p = new Projecte(rs.getString("titol"), rs.getString("estat"), prof);
+                if (!api) {
+                    p = new Projecte("<a href='projecte.do?projecte=" + rs.getString("titol") + "'>" + rs.getString("titol") + "</a>", rs.getString("estat"), prof);
+                } else {
+                    p = new Projecte(rs.getString("titol"), rs.getString("estat"), prof);
+                }
                 p.setEstudi(estudi);
                 llista.add(p);
             }
@@ -447,9 +453,9 @@ public class TfgDao implements IDao {
         } catch (SQLException | ClassNotFoundException e) {
         }
         return llista;
-        }
-        
-        public LinkedList<Projecte> userZone(HttpServletRequest request,
+    }
+
+    public LinkedList<Projecte> userZone(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
         User u;
         Projecte p;
@@ -482,9 +488,9 @@ public class TfgDao implements IDao {
         } catch (SQLException | ClassNotFoundException e) {
         }
         return llista;
-        }
-        
-        public LinkedList<String> findProfWithProjects(){
+    }
+
+    public LinkedList<String> findProfWithProjects() {
         Projecte p;
         LinkedList<String> llista = new LinkedList<String>();
         try {
@@ -501,9 +507,9 @@ public class TfgDao implements IDao {
         } catch (SQLException | ClassNotFoundException e) {
         }
         return llista;
-        }
-        
-        public LinkedList<User> findInfoProf(String professor){
+    }
+
+    public LinkedList<User> findInfoProf(String professor) {
         User u;
         LinkedList<User> llista = new LinkedList<User>();
 
@@ -521,12 +527,12 @@ public class TfgDao implements IDao {
         } catch (SQLException | ClassNotFoundException e) {
         }
         return llista;
-        }
-        
-        public LinkedList<String> findByState(String state){
-            
+    }
+
+    public LinkedList<String> findByState(String state) {
+
         LinkedList<String> llista = new LinkedList<String>();
-        
+
         try {
             Class.forName("org.apache.derby.jdbc.ClientDriver");
             Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/TFGDB", "root", "root");
@@ -535,10 +541,72 @@ public class TfgDao implements IDao {
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
                 llista.add(rs.getString("titol"));
-                }
+            }
             con.close();
         } catch (SQLException | ClassNotFoundException e) {
         }
         return llista;
+    }
+
+    public String createProjectAPI(String titol, String prof, String est) throws ServletException, IOException {
+        String msg = "";
+        //HttpSession session = request.getSession();
+        try {
+            if ((titol.equals("")) || (prof.equals(""))
+                    || (est.equals(""))) {
+                msg = "Has d'omplir tots els camps";
+            } else {
+                String[] professors = prof.split(",");
+                System.out.println(professors[0]);
+                String[] estudis = est.split(",");
+                System.out.println(estudis[0]);
+                System.out.println(estudis[1]);
+
+                Class.forName("org.apache.derby.jdbc.ClientDriver");
+                Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/TFGDB", "root", "root");
+                Statement stmt = con.createStatement();
+                String query;
+                ResultSet rs;
+                /* ------- REQUISITS (professors i/o estudis existeixen?) --------- */
+                int i;
+                Boolean seguir = true;
+                for (i = 0; (i < professors.length) && (seguir); i++) {
+                    query = "SELECT nom_usuari FROM TFGDB.Professor WHERE nom_usuari = '" + professors[i] + "'";
+                    rs = stmt.executeQuery(query);
+                    if (rs.next()) {
+                        // Existeix l'usuari especificat
+                    } else {
+                        msg = "Hi ha hagut un error (professor/s no existeixen)";
+                        seguir = false;
+                    }
+                }
+                for (i = 0; (i < estudis.length) && (seguir); i++) {
+                    query = "SELECT id FROM TFGDB.Estudi WHERE id = '" + estudis[i] + "'";
+                    rs = stmt.executeQuery(query);
+                    if (rs.next()) {
+                        // Existeix l'estudi especificat
+                    } else {
+                        msg = "Hi ha hagut un error (estudi/s no existeixen)";
+                        seguir = false;
+                    }
+                }
+                /* -------------------------------------------------------------- */
+                if (seguir) {
+                    String timeStamp = new SimpleDateFormat("dd-MM-yyyy").format(Calendar.getInstance().getTime());
+                    query = "INSERT INTO TFGDB.Projecte (titol, estat, data_crea) VALUES ('" + titol + "', 'Proposat', '" + timeStamp + "')";
+                    stmt.executeUpdate(query);
+                    for (String profe : professors) {
+                        for (String estu : estudis) {
+                            query = "INSERT INTO TFGDB.Relacio (titol, professor, estudi) VALUES ('" + titol + "', '" + profe + "', '" + estu + "')";
+                            stmt.executeUpdate(query);
+                        }
+                    }
+                    msg = "S'ha afegit el projecte '" + titol + "' correctament";
+                }
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            msg += "" + e;
         }
+        return msg;
+    }
 }

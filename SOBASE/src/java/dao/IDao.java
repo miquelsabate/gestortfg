@@ -15,7 +15,8 @@ public interface IDao {
         public LinkedList<?> login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
         public void modifyProject(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
         public LinkedList<?> findByProfessor(String professor, boolean api) throws ServletException, IOException; //TRUE if API is calling the method
-        public String createProject(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
+        public String createProject(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException;
+        public String createProjectAPI(String titol, String prof, String est) throws ServletException, IOException;
         public void signOut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
         public void signUp(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
         public LinkedList<?> findAll(boolean api) throws ServletException, IOException; //TRUE if API is calling the method
