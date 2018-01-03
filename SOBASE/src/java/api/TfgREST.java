@@ -153,7 +153,7 @@ public class TfgREST {
                 result = "Accès denegat, requereix d'autenticació com a professor al JSON o ser professor coordinador.";
             }
         }
-        return Response.status(405).entity(result).build();
+        return Response.status(201).entity(result).build();
 
     }
 /*
