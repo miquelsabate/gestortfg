@@ -28,5 +28,6 @@ public interface IDao {
         public boolean checkOwner(String user, String titol);
         public String assignProjectAPI(String estudiants, String professor, String estudi, String titol);
         public String deleteProjectAPI(String titol);
+        public String editProjectAPI(String estudiants, String professor, String estudis, String titol, String descripcio, String qualificacio, String recursos, String data_crea, String estat);
 
 }

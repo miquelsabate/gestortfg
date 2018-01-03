@@ -680,12 +680,43 @@ public class TfgDao implements IDao {
             Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/TFGDB", "root", "root");
             Statement stmt = con.createStatement();
             System.out.println("funciona?");
-            String query = "DELETE FROM TFGDB.Relacio WHERE (titol='"+titol+"')";
+            String query = "DELETE FROM TFGDB.Relacio WHERE (titol='" + titol + "')";
             stmt.executeQuery(query);
-            String query2 = "DELETE FROM TFGDB.Projecte WHERE (titol='"+titol+"')";
+            String query2 = "DELETE FROM TFGDB.Projecte WHERE (titol='" + titol + "')";
             stmt.executeQuery(query2);
 
-            msg = titol+" eliminat correctament.";
+            msg = titol + " eliminat correctament.";
+            con.close();
+        } catch (SQLException | ClassNotFoundException e) {
+            msg = e.toString();
+        }
+        return msg;
+    }
+
+    @Override
+    public String editProjectAPI(String estudiants, String professors, String estudis, String titol, String descripcio, String qualificacio, String recursos, String data_crea, String estat) {
+        String msg = "";
+        String[] estudiants2 = estudiants.split(",");
+        String[] prof2 = professors.split(",");
+        String[] estudis2 = estudis.split(",");
+        try {
+            Class.forName("org.apache.derby.jdbc.ClientDriver");
+            Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/TFGDB", "root", "root");
+            Statement stmt = con.createStatement();
+            String query;
+            String timeStamp = new SimpleDateFormat("dd-MM-yyyy").format(Calendar.getInstance().getTime());
+            query = "UPDATE TFGDB.Projecte SET (titol='" + titol + "', estat='" + estat + "', data_mod='" + timeStamp + "', descripcio='" + descripcio + "', "
+                    + "recursos='" + recursos + "',data_crea='" + data_crea + "',qualificacio='" + qualificacio + "') WHERE (titol='" + titol + "')";
+            stmt.executeUpdate(query);
+            for (String prof : prof2) {
+                for (String est : estudis2) {
+                    for (String est1 : estudiants2) {
+                        query = "UPDATE TFGDB.Relacio SET (titol='" + titol + "', professor='" + prof + "', estudi='" + est + "', estudiant='" + est1 + "') WHERE (titol='" + titol + "')";
+                        stmt.executeUpdate(query);
+                    }
+                }
+            }
+            msg = "S'ha MODIFICAT el projecte '" + titol + "' correctament";
             con.close();
         } catch (SQLException | ClassNotFoundException e) {
             msg = e.toString();
