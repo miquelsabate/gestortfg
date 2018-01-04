@@ -153,7 +153,6 @@ public class TfgREST {
             }
         }
         return Response.status(201).entity(result).build();
-
     }
 
     /*
@@ -172,10 +171,8 @@ public class TfgREST {
         return Response.status(201).entity(result).build();
 
     }*/
- /*
-    @PUT
-    public void edit() {
-    }*/
+    //json a utilitzar de prova:
+    //{"user":"msabate","pass":"miquel","estudiants":"dflores","estudi":"GEI","descripcio":"projecte de prova","qualificacio":"9","recursos":"www.wikipedia.com","data_crea":"03-01-2018","estat":"","professors":"msabate"}
     @PUT
     @Path("{id}")
     @Consumes({"application/xml", "application/json"})
@@ -183,7 +180,7 @@ public class TfgREST {
         String result = null;
         boolean check = false;
         boolean checkOwn = false;
-        if (projecte.get("estudiants") == null || projecte.get("user") == null || projecte.get("pass") == null || projecte.get("estudi") == null || projecte.get("titol") == null
+        if (projecte.get("estudiants") == null || projecte.get("user") == null || projecte.get("pass") == null || projecte.get("estudi") == null || projecte.get("professors") == null
                 || projecte.get("descripcio") == null || projecte.get("qualificacio") == null || projecte.get("recursos") == null || projecte.get("data_crea") == null) {
             result = "Format del Json incorrecte";
         } else {
@@ -191,10 +188,11 @@ public class TfgREST {
             check = dao.checkUser(projecte.get("user").toString().substring(1, projecte.get("user").toString().length() - 1), projecte.get("pass").toString().substring(1, projecte.get("pass").toString().length() - 1));
             checkOwn = dao.checkOwner(projecte.get("user").toString().substring(1, projecte.get("user").toString().length() - 1), id);
             if (check && checkOwn) {
-                result = dao.editProjectAPI(projecte.get("estudiants").toString().substring(1, projecte.get("estudiants").toString().length() - 1), projecte.get("user").toString().substring(1, projecte.get("user").toString().length() - 1),
-                        projecte.get("pass").toString().substring(1, projecte.get("pass").toString().length() - 1), projecte.get("estudi").toString().substring(1, projecte.get("estudi").toString().length() - 1), id,
+                result = dao.editProjectAPI(projecte.get("estudiants").toString().substring(1, projecte.get("estudiants").toString().length() - 1), projecte.get("professors").toString().substring(1, projecte.get("professors").toString().length() - 1),
+                        id, projecte.get("estudi").toString().substring(1, projecte.get("estudi").toString().length() - 1),
                         projecte.get("descripcio").toString().substring(1, projecte.get("descripcio").toString().length() - 1), projecte.get("qualificacio").toString().substring(1, projecte.get("qualificacio").toString().length() - 1),
-                        projecte.get("recursos").toString().substring(1, projecte.get("recursos").toString().length() - 1), projecte.get("data_crea").toString().substring(1, projecte.get("data_crea").toString().length() - 1));
+                        projecte.get("recursos").toString().substring(1, projecte.get("recursos").toString().length() - 1), projecte.get("data_crea").toString().substring(1, projecte.get("data_crea").toString().length() - 1),
+                        projecte.get("estat").toString().substring(1, projecte.get("estat").toString().length() - 1));
             } else {
                 result = "Accès denegat, requereix d'autenticació com a professor al JSON o ser professor coordinador.";
             }

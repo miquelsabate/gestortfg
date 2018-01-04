@@ -694,7 +694,7 @@ public class TfgDao implements IDao {
     }
 
     @Override
-    public String editProjectAPI(String estudiants, String professors, String estudis, String titol, String descripcio, String qualificacio, String recursos, String data_crea, String estat) {
+    public String editProjectAPI(String estudiants, String professors, String titol, String estudis, String descripcio, String qualificacio, String recursos, String data_crea, String estat) {
         String msg = "";
         String[] estudiants2 = estudiants.split(",");
         String[] prof2 = professors.split(",");
@@ -705,13 +705,13 @@ public class TfgDao implements IDao {
             Statement stmt = con.createStatement();
             String query;
             String timeStamp = new SimpleDateFormat("dd-MM-yyyy").format(Calendar.getInstance().getTime());
-            query = "UPDATE TFGDB.Projecte SET (titol='" + titol + "', estat='" + estat + "', data_mod='" + timeStamp + "', descripcio='" + descripcio + "', "
-                    + "recursos='" + recursos + "',data_crea='" + data_crea + "',qualificacio='" + qualificacio + "') WHERE (titol='" + titol + "')";
+            query = "UPDATE TFGDB.Projecte SET titol='" + titol + "', estat='" + estat + "', data_mod='" + timeStamp + "', descripcio='" + descripcio + "', "
+                    + "recursos='" + recursos + "',data_crea='" + data_crea + "',qualificacio='" + qualificacio + "' WHERE (titol='" + titol + "')";
             stmt.executeUpdate(query);
             for (String prof : prof2) {
                 for (String est : estudis2) {
                     for (String est1 : estudiants2) {
-                        query = "UPDATE TFGDB.Relacio SET (titol='" + titol + "', professor='" + prof + "', estudi='" + est + "', estudiant='" + est1 + "') WHERE (titol='" + titol + "')";
+                        query = "UPDATE TFGDB.Relacio SET titol='" + titol + "', professor='" + prof + "', estudi='" + est + "', estudiant='" + est1 + "' WHERE (titol='" + titol + "')";
                         stmt.executeUpdate(query);
                     }
                 }
