@@ -32,4 +32,5 @@ public interface IDao {
         public String editProjectAPI(String estudiants, String professor, String titol, String estudis, String descripcio, String qualificacio, String recursos, String data_crea, String estat);
         public String createProfessorAPI(String nomUsuari, String passNew, String nomComplet) throws ServletException, IOException;
         public String editProfessorAPI(String nomUser, String newPass, String nomComplet);
+        public String deleteProfessorAPI(String user);
 }

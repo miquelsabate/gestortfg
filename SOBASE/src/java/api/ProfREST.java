@@ -104,8 +104,32 @@ public class ProfREST {
             }
         }
         return Response.status(201).entity(result).build();
-
     }
+    
+    @DELETE
+    @Path("/{id}")
+    @Consumes("application/json")
+    public Response deleteProfessor(@PathParam("id") String id, JsonObject professor) throws ServletException, IOException {
+        String result = null;
+        boolean check = false;
+        boolean checkOwn = false;
+        if (professor.get("user") == null || professor.get("pass") == null) {
+            result = "Format del Json incorrecte";
+        } else {
+            TfgDao dao = new TfgDao();
+            check = dao.checkUser(professor.get("user").toString().substring(1, professor.get("user").toString().length() - 1), professor.get("pass").toString().substring(1, professor.get("pass").toString().length() - 1));
+            checkOwn = dao.checkOwnerID(professor.get("user").toString().substring(1, professor.get("user").toString().length() - 1), id);
+            System.out.println(check + " " + checkOwn);
+            if (check && checkOwn) {
+                result = dao.deleteProfessorAPI(id);
+            } else {
+                result = "Accès denegat, requereix d'autenticació com a professor al JSON o ser professor coordinador.";
+            }
+        }
+        return Response.status(201).entity(result).build();
+    }
+    
+    
     /*@POST
     @Consumes({"application/xml", "application/json"})
     public void create() {

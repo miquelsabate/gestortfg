@@ -786,4 +786,25 @@ public class TfgDao implements IDao {
         }
         return msg;
     }
+
+    
+    @Override
+    public String deleteProfessorAPI(String user) {
+        String msg = "";
+        try {
+            Class.forName("org.apache.derby.jdbc.ClientDriver");
+            Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/TFGDB", "root", "root");
+            Statement stmt = con.createStatement();
+            System.out.println("funciona?");
+            String query = "DELETE FROM TFGDB.professor WHERE (nom_usuari='" + user + "')";
+            stmt.executeUpdate(query);
+
+            msg = user + " eliminat correctament.";
+            con.close();
+        } catch (SQLException | ClassNotFoundException e) {
+            msg = e.toString();
+        }
+        return msg;
+    }
+
 }
