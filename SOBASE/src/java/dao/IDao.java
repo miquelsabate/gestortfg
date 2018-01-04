@@ -29,5 +29,5 @@ public interface IDao {
         public String assignProjectAPI(String estudiants, String professor, String estudi, String titol);
         public String deleteProjectAPI(String titol);
         public String editProjectAPI(String estudiants, String professor, String titol, String estudis, String descripcio, String qualificacio, String recursos, String data_crea, String estat);
-
+        public String createProfessorAPI(String nomUsuari, String passNew, String nomComplet) throws ServletException, IOException;
 }

@@ -723,4 +723,26 @@ public class TfgDao implements IDao {
         }
         return msg;
     }
+
+    @Override
+    public String createProfessorAPI(String nomUsuari, String passNew, String nomComplet) throws ServletException, IOException {
+        String msg = "";
+        try {
+            if ((nomUsuari.equals("")) || (passNew.equals("")) || (nomComplet.equals(""))) {
+                msg = "Has d'omplir tots els camps";
+            } else {
+                Class.forName("org.apache.derby.jdbc.ClientDriver");
+                Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/TFGDB", "root", "root");
+                Statement stmt = con.createStatement();
+                String query;
+                query = "INSERT INTO TFGDB.Professor (nom_usuari, contrasenya, nom_complert) VALUES ('" + nomUsuari + "', '" + passNew + "', '" + nomComplet + "')";
+                stmt.executeUpdate(query);
+
+                msg = "S'ha creat el professor '" + nomUsuari + "' correctament";
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            msg += "" + e;
+        }
+        return msg;
+    }
 }
