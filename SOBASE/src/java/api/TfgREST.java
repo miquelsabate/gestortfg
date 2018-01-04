@@ -189,10 +189,9 @@ public class TfgREST {
             checkOwn = dao.checkOwner(projecte.get("user").toString().substring(1, projecte.get("user").toString().length() - 1), id);
             if (check && checkOwn) {
                 result = dao.editProjectAPI(projecte.get("estudiants").toString().substring(1, projecte.get("estudiants").toString().length() - 1), projecte.get("professors").toString().substring(1, projecte.get("professors").toString().length() - 1),
-                        id, projecte.get("estudi").toString().substring(1, projecte.get("estudi").toString().length() - 1),
-                        projecte.get("descripcio").toString().substring(1, projecte.get("descripcio").toString().length() - 1), projecte.get("qualificacio").toString().substring(1, projecte.get("qualificacio").toString().length() - 1),
-                        projecte.get("recursos").toString().substring(1, projecte.get("recursos").toString().length() - 1), projecte.get("data_crea").toString().substring(1, projecte.get("data_crea").toString().length() - 1),
-                        projecte.get("estat").toString().substring(1, projecte.get("estat").toString().length() - 1));
+                        id, projecte.get("estudi").toString().substring(1, projecte.get("estudi").toString().length() - 1), projecte.get("descripcio").toString().substring(1, projecte.get("descripcio").toString().length() - 1),
+                        projecte.get("qualificacio").toString().substring(1, projecte.get("qualificacio").toString().length() - 1), projecte.get("recursos").toString().substring(1, projecte.get("recursos").toString().length() - 1),
+                        projecte.get("data_crea").toString().substring(1, projecte.get("data_crea").toString().length() - 1), projecte.get("estat").toString().substring(1, projecte.get("estat").toString().length() - 1));
             } else {
                 result = "Accès denegat, requereix d'autenticació com a professor al JSON o ser professor coordinador.";
             }

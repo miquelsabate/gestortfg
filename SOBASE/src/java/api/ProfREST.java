@@ -82,6 +82,30 @@ public class ProfREST {
         return Response.status(201).entity(result).build();
 
     }
+
+    //json a utilitzar de prova: {"user":"UsuariProva1","pass":"pass1mod","passNew":"pass1mod2","nomComplet":"usuari de prova modificat"}
+    @PUT
+    @Path("{id}")
+    @Consumes({"application/xml", "application/json"})
+    public Response editProfessor(@PathParam("id") String id, JsonObject professor) throws ServletException, IOException {
+        String result = null;
+        boolean check = false;
+        boolean checkOwn = false;
+        if (professor.get("user") == null || professor.get("pass") == null || professor.get("passNew") == null || professor.get("nomComplet") == null) {
+            result = "Format del Json incorrecte";
+        } else {
+            TfgDao dao = new TfgDao();
+            check = dao.checkUser(professor.get("user").toString().substring(1, professor.get("user").toString().length() - 1), professor.get("pass").toString().substring(1, professor.get("pass").toString().length() - 1));
+            checkOwn = dao.checkOwnerID(professor.get("user").toString().substring(1, professor.get("user").toString().length() - 1), id);
+            if (check && checkOwn) {
+                result = dao.editProfessorAPI(id, professor.get("passNew").toString().substring(1, professor.get("passNew").toString().length() - 1), professor.get("nomComplet").toString().substring(1, professor.get("nomComplet").toString().length() - 1));
+            } else {
+                result = "Accès denegat, requereix d'autenticació com a professor al JSON o ser professor coordinador.";
+            }
+        }
+        return Response.status(201).entity(result).build();
+
+    }
     /*@POST
     @Consumes({"application/xml", "application/json"})
     public void create() {

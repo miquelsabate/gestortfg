@@ -652,6 +652,27 @@ public class TfgDao implements IDao {
         return result;
     }
 
+    @Override
+    public boolean checkOwnerID(String user, String id) {
+        boolean result = false;
+
+        try {
+            Class.forName("org.apache.derby.jdbc.ClientDriver");
+            Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/TFGDB", "root", "root");
+            Statement stmt = con.createStatement();
+            String query = "SELECT DISTINCT nom_usuari FROM TFGDB.Professor WHERE nom_usuari = '" + id + "'";
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                if (rs.getString("nom_usuari").equals(user)) {
+                    result = true;
+                }
+            }
+            con.close();
+        } catch (SQLException | ClassNotFoundException e) {
+        }
+        return result;
+    }
+
     public String assignProjectAPI(String estudiants, String professor, String estudi, String titol) {
         String msg = "";
         String[] est = estudiants.split(",");
@@ -742,6 +763,26 @@ public class TfgDao implements IDao {
             }
         } catch (SQLException | ClassNotFoundException e) {
             msg += "" + e;
+        }
+        return msg;
+    }
+
+    @Override
+    public String editProfessorAPI(String nomUser, String newPass, String nomComplet) {
+        String msg = "";
+
+        try {
+            Class.forName("org.apache.derby.jdbc.ClientDriver");
+            Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/TFGDB", "root", "root");
+            Statement stmt = con.createStatement();
+            String query;
+            query = "UPDATE TFGDB.Professor SET contrasenya='" + newPass + "', nom_complert='" + nomComplet + "' WHERE (nom_usuari='" + nomUser + "')";
+            stmt.executeUpdate(query);
+
+            msg = "S'ha MODIFICAT el professor '" + nomUser + "' correctament.";
+            con.close();
+        } catch (SQLException | ClassNotFoundException e) {
+            msg = e.toString();
         }
         return msg;
     }
