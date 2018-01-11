@@ -94,9 +94,7 @@ public class TfgDao implements IDao {
     public LinkedList<Projecte> findByInfoProject(String projecte) throws ServletException, IOException {
         Projecte p;
         LinkedList<Projecte> llista = new LinkedList<Projecte>();
-        /* -- REQUERIMENTS -- */
 
- /* ------------------ */
         try {
             Class.forName("org.apache.derby.jdbc.ClientDriver");
             Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/TFGDB", "root", "root");

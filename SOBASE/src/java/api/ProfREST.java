@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package api;
 
 import cat.urv.deim.sob.Projecte;
@@ -106,6 +102,7 @@ public class ProfREST {
         return Response.status(201).entity(result).build();
     }
     
+    //Actualment no operatiu
     @DELETE
     @Path("/{id}")
     @Consumes("application/json")
@@ -128,45 +125,4 @@ public class ProfREST {
         }
         return Response.status(201).entity(result).build();
     }
-    
-    
-    /*@POST
-    @Consumes({"application/xml", "application/json"})
-    public void create() {
-    }
-
-    @PUT
-    @Consumes({"application/xml", "application/json"})
-    public void edit() {
-    }
-
-    @DELETE
-    @Path("{id}")
-    public void remove(@PathParam("id") Integer id) {
-    }
-
-    @GET
-    @Path("{id}")
-    @Produces({"application/xml", "application/json"})
-    public void find(@PathParam("id") Integer id) {
-    }
-
-    @GET
-    @Path("{from}/{to}")
-    @Produces({"application/xml", "application/json"})
-    public void findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
-    }
-
-    /*@GET
-    @Path("count")
-    @Produces("text/plain")
-    public String countREST() {
-        return String.valueOf(super.count());
-    }
-
-    @Override
-    protected EntityManager getEntityManager() {
-        return em;
-    }*/
-
 }

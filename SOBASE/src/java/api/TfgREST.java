@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package api;
 
 import cat.urv.deim.sob.Projecte;
@@ -131,46 +127,7 @@ public class TfgREST {
         return Response.status(201).entity(result).build();
 
     }
-
-    @DELETE
-    @Path("/{id}")
-    @Consumes("application/json")
-    public Response deleteProject(@PathParam("id") String id, JsonObject projecte) throws ServletException, IOException {
-        String result = null;
-        boolean check = false;
-        boolean checkOwn = false;
-        if (projecte.get("user") == null || projecte.get("pass") == null) {
-            result = "Format del Json incorrecte";
-        } else {
-            TfgDao dao = new TfgDao();
-            check = dao.checkUser(projecte.get("user").toString().substring(1, projecte.get("user").toString().length() - 1), projecte.get("pass").toString().substring(1, projecte.get("pass").toString().length() - 1));
-            checkOwn = dao.checkOwner(projecte.get("user").toString().substring(1, projecte.get("user").toString().length() - 1), id);
-            System.out.println(check + " " + checkOwn);
-            if (check && checkOwn) {
-                result = dao.deleteProjectAPI(id);
-            } else {
-                result = "Accès denegat, requereix d'autenticació com a professor al JSON o ser professor coordinador.";
-            }
-        }
-        return Response.status(201).entity(result).build();
-    }
-
-    /*
-    @DELETE
-    @Path("{id}")
-    //@Consumes("application/json")
-    public Response deleteProject(@PathParam("id") String id) throws ServletException, IOException {
-        String result = null;
-        boolean check = false;
-        boolean checkOwn = false;
-
-        TfgDao dao = new TfgDao();
-
-        result = dao.deleteProjectAPI(id);
-
-        return Response.status(201).entity(result).build();
-
-    }*/
+    
     //json a utilitzar de prova:
     //{"user":"msabate","pass":"miquel","estudiants":"dflores","estudi":"GEI","descripcio":"projecte de prova","qualificacio":"9","recursos":"www.wikipedia.com","data_crea":"03-01-2018","estat":"","professors":"msabate"}
     @PUT
@@ -199,33 +156,28 @@ public class TfgREST {
         return Response.status(201).entity(result).build();
 
     }
-    /*
+    
+    //Atualment no operatiu
     @DELETE
-    @Path("{id}")
-    public void remove(@PathParam("id") Integer id) {
+    @Path("/{id}")
+    @Consumes("application/json")
+    public Response deleteProject(@PathParam("id") String id, JsonObject projecte) throws ServletException, IOException {
+        String result = null;
+        boolean check = false;
+        boolean checkOwn = false;
+        if (projecte.get("user") == null || projecte.get("pass") == null) {
+            result = "Format del Json incorrecte";
+        } else {
+            TfgDao dao = new TfgDao();
+            check = dao.checkUser(projecte.get("user").toString().substring(1, projecte.get("user").toString().length() - 1), projecte.get("pass").toString().substring(1, projecte.get("pass").toString().length() - 1));
+            checkOwn = dao.checkOwner(projecte.get("user").toString().substring(1, projecte.get("user").toString().length() - 1), id);
+            System.out.println(check + " " + checkOwn);
+            if (check && checkOwn) {
+                result = dao.deleteProjectAPI(id);
+            } else {
+                result = "Accès denegat, requereix d'autenticació com a professor al JSON o ser professor coordinador.";
+            }
+        }
+        return Response.status(201).entity(result).build();
     }
-
-    @GET
-    @Path("{id}")
-    @Produces({"application/xml", "application/json"})
-    public void find(@PathParam("id") Integer id) {
-    }
-
-    @GET
-    @Path("{from}/{to}")
-    @Produces({"application/xml", "application/json"})
-    public void findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
-    }
-
-    /*@GET
-    @Path("count")
-    @Produces("text/plain")
-    public String countREST() {
-        return String.valueOf(super.count());
-    }
-
-    @Override
-    protected EntityManager getEntityManager() {
-        return em;
-    }*/
 }
